@@ -1,0 +1,37 @@
+version: "3.1"
+services:
+  app:
+    build: ./app
+    env_file:
+      - ./config/.app.env
+    volumes:
+      - ./app:/opt/app
+      - /opt/app/node_modules
+    ports:
+      - 8080:3000
+    depends_on:
+      - api
+
+  website:
+    build: website
+    env_file:
+      - ./config/.env
+    volumes:
+      - ./website:/opt/website
+    ports:
+      - 8081:8081
+
+  api:
+    build: ./api
+    env_file:
+      - ./config/.env
+    volumes:
+      - ./api:/opt/api
+    ports:
+      - 8090:8090
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:10.6
+    restart: always
