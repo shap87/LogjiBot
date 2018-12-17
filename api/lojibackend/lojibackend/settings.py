@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'corsheaders',
     'drf_yasg',
     'allauth',
     'allauth.account',
@@ -68,6 +69,8 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'users.ExtendUser'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,6 +79,20 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_WHITELIST = (
+#     API_URL,
+#     'localhost:8090',
+#     'localhost:8080',
+#     'localhost:8081',
+#     '127.0.0.1:8090',
+#     '127.0.0.1:8080',
+#     '127.0.0.1:8081',
+# )
+
+
 
 ROOT_URLCONF = 'lojibackend.urls'
 
