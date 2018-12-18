@@ -35,12 +35,12 @@ export const authenticateCustomer = (credentials, isKeepingSignedIn) => (dispatc
   dispatch(handleCustomerAuthentication());
 
   return authService.authenticateCustomer(credentials)
-    .then(({ token }) => {
+    .then(({ access }) => {
       if (isKeepingSignedIn) {
-        authService.setAuthTokenInStorage(token);
+        authService.setAuthTokenInStorage(access);
       }
 
-      dispatch(handleSuccessfulAuthentication(token));
+      dispatch(handleSuccessfulAuthentication(access));
     })
     .catch(({ error }) => dispatch(handleFailedAuthentication(error)));
 };
@@ -49,12 +49,14 @@ export const createCustomer = (credentials, isKeepingSignedIn) => (dispatch) => 
   dispatch(handleCustomerCreation());
 
   return authService.createCustomer(credentials)
-    .then(({ user, token }) => {
+    .then(({ access }) => {
       if (isKeepingSignedIn) {
-        authService.setAuthTokenInStorage(token);
+        authService.setAuthTokenInStorage(access);
       }
 
-      dispatch(handleSuccessfulCreation(user, token));
+      const { username, email } = credentials;
+
+      dispatch(handleSuccessfulCreation({ username, email }, access));
     })
     .catch(({ error }) => dispatch(handleFailedCreation(error)));
 };

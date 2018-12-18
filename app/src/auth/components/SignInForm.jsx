@@ -11,12 +11,12 @@ import CustomInput from '../../utils/components/CustomInput';
 
 export default function SignInForm({ onSubmit, isCustomerAuthenticating }) {
   const validationSchema = yup.object().shape({
-    email: yup.string().required(),
+    username: yup.string().required(),
     password: yup.string().required(),
     keepSignedIn: yup.bool().required(),
   });
   const initialValues = {
-    email: '',
+    username: '',
     password: '',
     keepSignedIn: false,
   };
@@ -35,9 +35,9 @@ export default function SignInForm({ onSubmit, isCustomerAuthenticating }) {
             </Label>
             <Field
               type="email"
-              name="email"
+              name="username"
               id="loginInput"
-              placeholder="john.smith@email.com"
+              placeholder="john.smith"
               component={CustomInput}
             />
           </FormGroup>

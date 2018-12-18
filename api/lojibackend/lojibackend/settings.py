@@ -17,6 +17,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # runtime environment
+APP_URL = os.environ.get('APP_URL')
+APP_PORT = os.environ.get('APP_PORT')
 API_URL = os.environ.get('API_URL')
 DB_URL = os.environ.get('DB_URL')
 
@@ -82,16 +84,9 @@ MIDDLEWARE = [
 
 # CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ORIGIN_WHITELIST = (
-#     API_URL,
-#     'localhost:8090',
-#     'localhost:8080',
-#     'localhost:8081',
-#     '127.0.0.1:8090',
-#     '127.0.0.1:8080',
-#     '127.0.0.1:8081',
-# )
-
+CORS_ORIGIN_WHITELIST = (
+    APP_URL + ':' + APP_PORT
+)
 
 
 ROOT_URLCONF = 'lojibackend.urls'
