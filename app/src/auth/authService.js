@@ -19,10 +19,10 @@ export const setAuthTokenInStorage = (token) => {
 };
 
 export const validateToken = (token) => axios
-  .post(`//${apiUrl}/v${apiVersion}/token/refresh`, { refresh: token });
+  .post(`//${apiUrl}/v${apiVersion}/token/refresh/`, { refresh: token });
 
 export const authenticateCustomer = ({ username, password }) => axios
   .post(`//${apiUrl}/v${apiVersion}/token/`, { username, password });
 
 export const createCustomer = ({ email, username, password }) => axios
-  .post(`//${apiUrl}/v${apiVersion}/user/registration`, { username, password, email });
+  .post(`//${apiUrl}/v${apiVersion}/user/registration/`, { username, password, email });

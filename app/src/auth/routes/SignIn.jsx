@@ -16,10 +16,10 @@ export class SignIn extends PureComponent {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit({ email, password, keepSignedIn }) {
+  onSubmit({ username, password, keepSignedIn }) {
     const { signIn } = this.props;
 
-    signIn({ email, password }, keepSignedIn);
+    signIn({ username, password }, keepSignedIn);
   }
 
   render() {

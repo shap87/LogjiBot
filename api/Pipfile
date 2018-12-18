@@ -19,6 +19,7 @@ pycountry = "*"
 django-rest-swagger = "*"
 flex = "*"
 swagger-spec-validator = "*"
+django-cors-headers = "*"
 
 [requires]
-python_version = "3.4"
+python_version = "3.*"
