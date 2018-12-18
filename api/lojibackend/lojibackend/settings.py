@@ -30,7 +30,8 @@ SECRET_KEY = '97&pg@a4paw&x(zl#ydgxpj0!*%bovllhhtk%2p@y&y$j3pok4'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    API_URL
+    API_URL,
+    '127.0.0.1'
 ]
 
 
@@ -51,7 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'api', 
+    'api',
     'users',
     'purchase_orders',
 ]

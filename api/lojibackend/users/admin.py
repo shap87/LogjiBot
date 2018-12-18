@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from .forms import ExtendUserCreationForm, ExtendUserChangeForm
-from .models import ExtendUser
+from .models import ExtendUser,UserCompany
 
 # Register your models here.
 class ExtendUserAdmin(UserAdmin):
@@ -12,3 +12,4 @@ class ExtendUserAdmin(UserAdmin):
     list_display = ['email', 'username', 'phone']
 
 admin.site.register(ExtendUser, ExtendUserAdmin)
+admin.site.register(UserCompany)

@@ -22,6 +22,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from purchase_orders.urls import *
 from users.urls import *
+from quickbooks_sync.urls import *
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -39,7 +40,7 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    path('docs/', include_docs_urls(title='Loji Docs', public=True, schema_url='http://sandtex-host.com', generator_class=router.SchemaGenerator, 
+    path('docs/', include_docs_urls(title='Loji Docs', public=True, schema_url='http://sandtex-host.com', generator_class=router.SchemaGenerator,
                                     authentication_classes=[],
                                     permission_classes=[])),
     path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
@@ -51,5 +52,5 @@ urlpatterns = [
     path('api/v1/token/refresh/', TokenRefreshView.as_view()),
     path('api/v1/user/', include('users.urls')),
     path('api/v1/po/', include('purchase_orders.urls')),
-
+    path('api/v1/qb/', include('quickbooks_sync.urls'))
 ]
