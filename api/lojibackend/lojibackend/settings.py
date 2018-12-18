@@ -86,7 +86,7 @@ MIDDLEWARE = [
 # CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
-    APP_URL + ':' + APP_PORT
+    str(APP_URL) + ':' + str(APP_PORT)
 )
 
 

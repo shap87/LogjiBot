@@ -87,6 +87,7 @@ class Vendor(models.Model):
     phone = models.CharField(verbose_name=_('Phone'), validators=[phone_regex], max_length=17, blank=True)
     contact_name = models.CharField(verbose_name=_('Contact Name'), max_length=100, null=True, blank=True)
     email = models.EmailField(verbose_name=_('Email'), null=True, blank=True)
+    qb_id = models.PositiveIntegerField(verbose_name=_('Id from QuickBooks'),null=True,blank=True)
 
     class Meta:
         verbose_name = _('Vendor')
@@ -106,6 +107,9 @@ class PurchaseOrder(models.Model):
     ship_method = models.CharField(verbose_name=_('Ship Method'), max_length=100, null=True, blank=True)
     status = models.CharField(verbose_name=_('Status'), max_length=100, null=True, blank=True)
     ship_date = models.DateField(verbose_name=_('Ship Date'), null=True, blank=True)
+    qb_id = models.PositiveIntegerField(verbose_name=_('Id from QuickBooks'),null=True,blank=True)
+    tracking_number = models.CharField(max_length=16,verbose_name=_('Tracking number'),null=True,blank=True)
+
 
     class Meta:
         verbose_name = _('PurchaseOrder')
@@ -134,6 +138,8 @@ class Part(models.Model):
     name = models.CharField(verbose_name=_('Name'), max_length=100)
     brand = models.CharField(verbose_name=_('Brand'), max_length=100)
     desc = models.CharField(verbose_name=_('Desc'), max_length=100)
+    qb_id = models.PositiveIntegerField(verbose_name=_('Id from QuickBooks'),null=True,blank=True)
+
 
     class Meta:
         verbose_name = _('Part')
@@ -148,6 +154,8 @@ class PurchaseOrderItem(models.Model):
     part = models.ForeignKey(Part, verbose_name=_('Part'), on_delete=models.CASCADE)
     unit_price = models.DecimalField(verbose_name=_('Unit Price'), max_digits=12, decimal_places=6, default=0)
     qty = models.IntegerField(verbose_name=_('Quantity'), default=0)
+    qb_id = models.PositiveIntegerField(verbose_name=_('Id from QuickBooks'),null=True,blank=True)
+
 
     class Meta:
         verbose_name = _('PurchaseOrderItem')

@@ -28,6 +28,8 @@ def sync(request):
     pos_content = json.loads(response.content)
 
     print(pos_content)
+    #for po in pos_content['QueryResponse']['PurchaseOrder']:
+
 
     return Response(status=200)
 # Create your views here.
