@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
 from rest_framework.response import Response
 import json,requests
+from purchase_orders.models import Vendor, PurchaseOrder, Part, PurchaseOrderItem
 
 @api_view(['POST'])
 @authentication_classes(())
@@ -24,11 +25,44 @@ def sync(request):
         'Authorization': auth_header,
         'Accept': 'application/json'
     }
+    #make API call
     response = requests.get(url, headers=headers)
     pos_content = json.loads(response.content)
 
-    print(pos_content)
-    #for po in pos_content['QueryResponse']['PurchaseOrder']:
+
+    for po in pos_content['QueryResponse']['PurchaseOrder']:
+        vendor,created = Vendor.objects.get_or_create(qb_id=po['VendorRef']['value'])
+        if created:
+            vendor.name = po['VendorRef']['name']
+            vendor.city = po['VendorAddr']['Line4'].split(',')[0]
+            vendor.state = po['VendorAddr']['Line4'].split()[1]
+            vendor.zip = po['VendorAddr']['Line4'].split()[2]
+            vendor.contact_name = po['VendorAddr']['Line1']
+            vendor.save()
+
+        purchase_order,created = PurchaseOrder.objects.get_or_create(qb_id = po['Id'],
+                                                                     vendor = vendor)
+        if created:
+            purchase_order.vendor = vendor
+            purchase_order.company = vendor.company
+            purchase_order.time_created = po['MetaData']['CreateTime']
+            purchase_order.time_modified = po['MetaData']['LastUpdatedTime']
+            purchase_order.status = 'OA'
+            purchase_order.save()
+
+            #if purchase order is new we filling info for it
+            for line in po['Line']:
+                if line['DetailType'] == 'ItemBasedExpenseLineDetail':
+                    part,created = Part.objects.get_or_create(qb_id=line['ItemBasedExpenseLineDetail']['ItemRef']['value'])
+                    #creating items
+                    if created:
+                        part.name = line['ItemBasedExpenseLineDetail']['ItemRef']['name']
+                        part.save()
+
+                    poi = PurchaseOrderItem.objects.create(po=purchase_order,
+                                                           part=part,
+                                                           unit_price=line['ItemBasedExpenseLineDetail']['UnitPrice'],
+                                                           qty=line['ItemBasedExpenseLineDetail']['Qty'])
 
 
     return Response(status=200)

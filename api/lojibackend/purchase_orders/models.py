@@ -100,7 +100,7 @@ class Vendor(models.Model):
 class PurchaseOrder(models.Model):
     users = models.ManyToManyField(Profile, blank=True, through='PurchaseOrderNote')
     vendor = models.ForeignKey(Vendor, verbose_name=_('Vendor'), on_delete=models.CASCADE)
-    company = models.ForeignKey(UserCompany, verbose_name=_('Company'), on_delete=models.CASCADE)
+    company = models.ForeignKey(UserCompany, verbose_name=_('Company'), on_delete=models.CASCADE,default=0)
     time_created = models.DateTimeField(verbose_name=_('Created at'), auto_now_add=True)
     time_modified = models.DateTimeField(verbose_name=_('Modified at'), auto_now=True)
     due_date = models.DateField(verbose_name=_('Due Date'), null=True, blank=True)
@@ -154,7 +154,6 @@ class PurchaseOrderItem(models.Model):
     part = models.ForeignKey(Part, verbose_name=_('Part'), on_delete=models.CASCADE)
     unit_price = models.DecimalField(verbose_name=_('Unit Price'), max_digits=12, decimal_places=6, default=0)
     qty = models.IntegerField(verbose_name=_('Quantity'), default=0)
-    qb_id = models.PositiveIntegerField(verbose_name=_('Id from QuickBooks'),null=True,blank=True)
 
 
     class Meta:

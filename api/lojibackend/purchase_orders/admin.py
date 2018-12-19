@@ -7,6 +7,7 @@ admin.site.register(Vendor)
 admin.site.register(PurchaseOrder)
 admin.site.register(PurchaseOrderItem)
 admin.site.register(Company)
+admin.site.register(Part)
 
 
 
