@@ -33,7 +33,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     API_URL,
-    '127.0.0.1'
+    '127.0.0.1',
+    'localhost'
 ]
 
 
@@ -169,3 +170,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated', ),
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)
 }
+
+
+#Intuit Oauth2
+from intuitlib.enums import Scopes
+
+INTUIT_CLIENT_ID = "Q0kbUO2D1EqcPLdxXJN40jXzh95YvUysVyqbiO6TKOn7uUnKdt"
+INTUIT_CLIENT_SECRET =  "IC0S4vmg7C6Y5wiQngelxEqlha8PCcXNM0OZo9V7"
+INTUIT_REDIRECT_URI = "http://localhost:8000/api/v1/qb/redirect/"
+INTUIT_ENVIROMENT = "sandbox"
+INTUIT_SCOPES = [Scopes.OPENID,Scopes.ACCOUNTING,Scopes.EMAIL]

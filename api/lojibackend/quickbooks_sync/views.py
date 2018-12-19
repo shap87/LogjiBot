@@ -1,9 +1,47 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.http import HttpResponse
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
 from rest_framework.response import Response
 import json,requests
 from purchase_orders.models import Vendor, PurchaseOrder, Part, PurchaseOrderItem
 from users.models import UserCompany
+from intuitlib.client import AuthClient
+from django.conf import settings
+
+#Initialie auth client for intuit integration
+intuit_auth_client = AuthClient(
+    settings.INTUIT_CLIENT_ID,
+    settings.INTUIT_CLIENT_SECRET,
+    settings.INTUIT_REDIRECT_URI,
+    settings.INTUIT_ENVIROMENT,
+)
+
+@api_view(['GET'])
+@authentication_classes(())
+@permission_classes(())
+def auth(request):
+    '''
+    Route for generating auth url for QB oauth2
+    '''
+    url = intuit_auth_client.get_authorization_url(settings.INTUIT_SCOPES)
+    return redirect(url)
+
+
+@api_view(['GET'])
+@authentication_classes(())
+@permission_classes(())
+def auth_redirect(request):
+    '''
+    Redirect view for intuit oauth2 flow
+    This is the last step where intuit server grants access to client account
+    '''
+    intuit_auth_client.get_bearer_token(request.GET.get('code'))
+    userinfo = intuit_auth_client.get_user_info().content
+
+    return redirect(str(settings.APP_URL) + ':' + str(settings.APP_PORT)\
+                + '/qb/auth?access_token=' + intuit_auth_client.access_token\
+                + '&realm_id=' + request.GET.get('realmId'))
+
 
 @api_view(['POST'])
 @authentication_classes(())
