@@ -2,11 +2,18 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from rest_framework.decorators import api_view,authentication_classes,permission_classes
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from django.utils.six import text_type
+
 import json,requests
 from purchase_orders.models import Vendor, PurchaseOrder, Part, PurchaseOrderItem
+from users.models import ExtendUser
 from users.models import UserCompany
 from intuitlib.client import AuthClient
 from django.conf import settings
+from users.serializers import MyTokenObtainPairSerializer
+from .models import QuickBooksUser
 
 #Initialie auth client for intuit integration
 intuit_auth_client = AuthClient(
@@ -35,30 +42,60 @@ def auth_redirect(request):
     Redirect view for intuit oauth2 flow
     This is the last step where intuit server grants access to client account
     '''
+    #convert auth code to access token
     intuit_auth_client.get_bearer_token(request.GET.get('code'))
-    userinfo = intuit_auth_client.get_user_info().content
+    #get info about user
+    userinfo = json.loads(intuit_auth_client.get_user_info().content)
 
-    return redirect(str(settings.APP_URL) + ':' + str(settings.APP_PORT)\
-                + '/qb/auth?access_token=' + intuit_auth_client.access_token\
-                + '&realm_id=' + request.GET.get('realmId'))
+    #get or create new user
+    user,created = ExtendUser.objects.get_or_create(email=userinfo['email'],
+                                                    username=userinfo['email'])
+
+    #check if there is a default app company exist and create if not
+    uc,created = UserCompany.objects.get_or_create(id=0)
+    if(created):
+        uc.name = "John Peterson's Company"
+        uc.save()
+    user.company_id = uc
+    user.save()
+
+    #save access token for QB for user
+    qb_user,created = QuickBooksUser.objects.get_or_create(user = user)
+    qb_user.access_token = intuit_auth_client.access_token
+    qb_user.refresh_token = intuit_auth_client.refresh_token
+    qb_user.realm_id = request.GET.get('realmId')
+    qb_user.save()
+
+
+    #generate JWT token for user
+    refresh = MyTokenObtainPairSerializer.get_token(user)
+
+    #send JWT token to the frontend
+    return redirect("http://" + str(settings.APP_URL) + ':' + str(settings.APP_PORT)\
+                + '/auth?access_token=' + text_type(refresh.access_token)\
+                + '&refresh_token=' + text_type(refresh))
 
 
 @api_view(['POST'])
-@authentication_classes(())
-@permission_classes(())
 def sync(request):
     '''
     Append to purchase orders models new items from QB database
     '''
-    body = json.loads(request.body)
+    #get access_token for quick books
+    try:
+        qb_user = QuickBooksUser.objects.get(user=request.user)
+    except QuickBooksUser.DoesNotExist:
+        return Response(message="SignUp with QuickBooks first",status=401)
+    access_token=qb_user.access_token
+    realm_id=qb_user.realm_id
 
     #prepare API request
     base_url = 'https://sandbox-quickbooks.api.intuit.com'
     select_statment = 'select * from PurchaseOrder'
     url = '{0}/v3/company/{1}/query?query={2}'.format(base_url,
-                                                      body['realm_id'],
+                                                      realm_id,
                                                       select_statment)
-    auth_header = 'Bearer {0}'.format(body['access_token'])
+    auth_header = 'Bearer {0}'.format(access_token)
     headers = {
         'Authorization': auth_header,
         'Accept': 'application/json'
@@ -69,11 +106,6 @@ def sync(request):
     if(response.status_code == 200):
         #perform serialization
         pos_content = json.loads(response.content)
-
-        #check if there is a this app company exist and create if not
-        uc,created = UserCompany.objects.get_or_create(id=0)
-        uc.name = "John Peterson's Company"
-        uc.save()
 
         #iterate purchase orders
         for po in pos_content['QueryResponse']['PurchaseOrder']:
@@ -91,7 +123,7 @@ def sync(request):
                                                                          vendor = vendor)
             if created:
                 purchase_order.vendor = vendor
-                purchase_order.company = vendor.company
+                purchase_order.company = request.user.company_id
                 purchase_order.time_created = po['MetaData']['CreateTime']
                 purchase_order.time_modified = po['MetaData']['LastUpdatedTime']
                 purchase_order.status = 'OA'

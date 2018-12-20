@@ -22,6 +22,10 @@ APP_PORT = os.environ.get('APP_PORT')
 API_URL = os.environ.get('API_URL')
 DB_URL = os.environ.get('DB_URL')
 
+if(not APP_URL):
+    APP_URL = 'localhost'
+    APP_PORT = '8000'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -59,6 +63,7 @@ INSTALLED_APPS = [
     'api',
     'users',
     'purchase_orders',
+    'quickbooks_sync'
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -174,9 +179,8 @@ REST_FRAMEWORK = {
 
 #Intuit Oauth2
 from intuitlib.enums import Scopes
-
 INTUIT_CLIENT_ID = "Q0kbUO2D1EqcPLdxXJN40jXzh95YvUysVyqbiO6TKOn7uUnKdt"
 INTUIT_CLIENT_SECRET =  "IC0S4vmg7C6Y5wiQngelxEqlha8PCcXNM0OZo9V7"
-INTUIT_REDIRECT_URI = "http://localhost:8000/api/v1/qb/redirect/"
+INTUIT_REDIRECT_URI = "http://"+str(APP_URL)+":" + str(APP_PORT) + "/api/v1/qb/redirect/"
 INTUIT_ENVIROMENT = "sandbox"
-INTUIT_SCOPES = [Scopes.OPENID,Scopes.ACCOUNTING,Scopes.EMAIL]
+INTUIT_SCOPES = [Scopes.OPENID,Scopes.ACCOUNTING,Scopes.EMAIL,Scopes.PROFILE]
