@@ -39,6 +39,7 @@ export class AppRouter extends PureComponent {
   render() {
     const {
       hasInitialTokenValidationBeenDone, isTokenValid, isSidebarCollapsed, toggleSidebarWidth,
+      validateTokenOnMount,
     } = this.props;
 
     if (!hasInitialTokenValidationBeenDone) {
@@ -69,7 +70,16 @@ export class AppRouter extends PureComponent {
 
             <Switch>
               <Route path="/" render={() => <Redirect to="/dashboard" />} exact />
-              <Route path="/oauth" component={OAuth} />
+              <Route
+                path="/oauth"
+                render={(props) => (
+                  <OAuth
+                    isAuthenticated={isAuthenticated}
+                    validateToken={validateTokenOnMount}
+                    {...props}
+                  />
+                )}
+              />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
               <Route path="/forgot-password" component={ForgotPassword} />
