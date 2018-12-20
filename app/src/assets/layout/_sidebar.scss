@@ -6,6 +6,11 @@
   &.collapsed {
     width: $sidebar-width-collapsed;
   }
+
+  &--main {
+    width: $sidebar-width-collapsed;
+    min-width: $sidebar-width-collapsed;
+  }
 }
 
 .st-nav-link {

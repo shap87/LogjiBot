@@ -43,3 +43,17 @@ docker-compose down
 docker-compose restart <name_of_service>
 ```
 it can be `api`, `app` or any other service in the project
+
+#### API docs
+
+* Swagger
+
+`//<api_url>/swagger/`
+
+* Redoc 
+
+`//<api_url>/redoc/`
+
+* Django's Docs
+
+`//<api_url>/docs/`
