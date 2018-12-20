@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-import { apiUrl, apiVersion } from '../config';
+import { request } from '../utils/apiService';
 
 export const getAuthTokenFromStorage = () => {
   if (!localStorage) {
@@ -18,11 +16,14 @@ export const setAuthTokenInStorage = (token) => {
   localStorage.setItem('auth_token', token);
 };
 
-export const validateToken = (token) => axios
-  .post(`//${apiUrl}/v${apiVersion}/token/refresh/`, { refresh: token });
+export const validateToken = (token) => request(
+  'post', '/token/refresh/', { refresh: token }
+);
 
-export const authenticateCustomer = ({ username, password }) => axios
-  .post(`//${apiUrl}/v${apiVersion}/token/`, { username, password });
+export const authenticateCustomer = ({ username, password }) => request(
+  'post', '/token/', { username, password }
+);
 
-export const createCustomer = ({ email, username, password }) => axios
-  .post(`//${apiUrl}/v${apiVersion}/user/registration/`, { username, password, email });
+export const createCustomer = ({ email, username, password }) => request(
+  'post', '/user/registration/', { username, password, email }
+);

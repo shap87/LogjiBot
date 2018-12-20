@@ -8,7 +8,8 @@ const initialState = {
   token: null,
   isCustomerAuthenticated: false,
   isCustomerAuthenticating: false,
-  user: null,
+  user: {},
+  isKeepingSignedIn: false,
 };
 
 export default createReducer(initialState, {
@@ -41,6 +42,7 @@ export default createReducer(initialState, {
     isCustomerAuthenticated: true,
     isTokenValid: true,
     token: action.token,
+    isKeepingSignedIn: action.isKeepingSignedIn,
   }),
 
   [actionTypes.AUTHENTICATION_FAILED]: (state) => ({
@@ -61,6 +63,7 @@ export default createReducer(initialState, {
     isTokenValid: true,
     token: action.token,
     user: action.user,
+    isKeepingSignedIn: action.isKeepingSignedIn,
   }),
 
   [actionTypes.CREATING_FAILED]: (state) => ({

@@ -4,39 +4,24 @@ import classNames from 'classnames';
 import { Button } from 'reactstrap';
 
 import FaIcon from '../../utils/components/FaIcon';
+import SimpleTooltip from '../../utils/components/SimpleTooltip';
 
 export default function Header({ toggleSidebar, isSidebarCollapsed }) {
   const iconClasses = classNames('st-header-toggle', { collapsed: isSidebarCollapsed });
 
   return (
-    <nav className="st-header p-2 navbar">
+    <nav className="st-header navbar p-0">
       <Button
+        id="collapseSidebar"
         className="shadow-none border-0 st-icon-btn"
         color="light"
         onClick={toggleSidebar}
       >
         <FaIcon className={iconClasses} iconName="chevron-left" />
       </Button>
-      <div className="d-flex">
-        <Button
-          className="shadow-none border-0 rounded-circle st-icon-btn"
-          color="light"
-        >
-          <FaIcon iconName="bell" />
-        </Button>
-        <Button
-          className="shadow-none border-0 rounded-circle st-icon-btn"
-          color="light"
-        >
-          <FaIcon iconName="user" />
-        </Button>
-        <Button
-          className="shadow-none border-0 rounded-circle st-icon-btn"
-          color="light"
-        >
-          <FaIcon iconName="gear" />
-        </Button>
-      </div>
+      <SimpleTooltip target="collapseSidebar" placement="right" trigger="hover">
+        { isSidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar' }
+      </SimpleTooltip>
     </nav>
   );
 }

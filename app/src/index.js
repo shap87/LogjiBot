@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import 'bootstrap/scss/bootstrap.scss';
-import 'font-awesome/css/font-awesome.min.css';
+import 'font-awesome/scss/font-awesome.scss';
 import './assets/main.scss';
 
 import App from './App';
@@ -12,7 +12,8 @@ import { store } from './store';
 
 import * as serviceWorker from './serviceWorker';
 
-const appStore = createStore(store, applyMiddleware(thunk));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const appStore = createStore(store, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(<App store={appStore} />, document.getElementById('root'));
 

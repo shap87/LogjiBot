@@ -6,8 +6,10 @@ import {
 import { connect } from 'react-redux';
 
 import DashboardRouter from './dashboard/DashboardRouter';
+import PurchaseOrdersRouter from './purchaseOrders/PurchaseOrdersRouter';
+import UserSettingsRouter from './userSettings/UserSettingsRouter';
 import {
-  ForgotPassword, ResetPassword, SignIn, SignUp,
+  ForgotPassword, ResetPassword, SignIn, SignUp, OAuth,
 } from './auth/routes';
 import { PrivateRoute, NotMatch } from './auth/components';
 import { Header, Sidebar } from './layout/components';
@@ -48,13 +50,13 @@ export class AppRouter extends PureComponent {
 
     return (
       <Router>
-        <main className="d-flex flex-grow-1">
+        <main className="d-flex flex-grow-1 bg-light">
           { isAuthenticated
             ? (<Sidebar isSidebarCollapsed={isSidebarCollapsed} />)
             : null
           }
 
-          <div className="d-flex flex-column flex-grow-1">
+          <div className="d-flex flex-column flex-grow-1 rounded-left px-4 py-2 bg-light shadow-z3">
             { isAuthenticated
               ? (
                 <Header
@@ -67,6 +69,7 @@ export class AppRouter extends PureComponent {
 
             <Switch>
               <Route path="/" render={() => <Redirect to="/dashboard" />} exact />
+              <Route path="/oauth" component={OAuth} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
               <Route path="/forgot-password" component={ForgotPassword} />
@@ -74,6 +77,16 @@ export class AppRouter extends PureComponent {
               <PrivateRoute
                 path="/dashboard"
                 component={DashboardRouter}
+                isAuthenticated={isAuthenticated}
+              />
+              <PrivateRoute
+                path="/purchase-orders"
+                component={PurchaseOrdersRouter}
+                isAuthenticated={isAuthenticated}
+              />
+              <PrivateRoute
+                path="/user-settings"
+                component={UserSettingsRouter}
                 isAuthenticated={isAuthenticated}
               />
               <Route component={NotMatch} />

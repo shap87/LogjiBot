@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {
@@ -8,6 +8,8 @@ import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 
 import CustomInput from '../../utils/components/CustomInput';
+import Divider from '../../utils/components/Divider';
+import SignInWithIntuitButton from './SignInWithIntuitButton';
 
 export default function SignUpForm({ onSubmit, isCustomerAuthenticating }) {
   const validationSchema = yup.object().shape({
@@ -39,93 +41,99 @@ export default function SignUpForm({ onSubmit, isCustomerAuthenticating }) {
         handleSubmit,
         isValid,
       }) => (
-        <Form onSubmit={handleSubmit}>
-          <FormGroup>
-            <Label htmlFor="userNameInput">
+        <Fragment>
+          <div className="d-flex pt-3 justify-content-center mb-4">
+            <SignInWithIntuitButton />
+          </div>
+          <Divider text="or" />
+          <Form onSubmit={handleSubmit}>
+            <FormGroup>
+              <Label htmlFor="userNameInput">
               Username
-            </Label>
-            <Field
-              id="userNameInput"
-              name="username"
-              type="text"
-              component={CustomInput}
-              placeholder="john.smith"
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="emailInput">
+              </Label>
+              <Field
+                id="userNameInput"
+                name="username"
+                type="text"
+                component={CustomInput}
+                placeholder="john.smith"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="emailInput">
               Email address
-            </Label>
-            <Field
-              type="email"
-              id="emailInput"
-              name="email"
-              placeholder="john.smith@email.com"
-              component={CustomInput}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="passwordInput">
+              </Label>
+              <Field
+                type="email"
+                id="emailInput"
+                name="email"
+                placeholder="john.smith@email.com"
+                component={CustomInput}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="passwordInput">
               Password
-            </Label>
-            <Field
-              type="password"
-              id="passwordInput"
-              name="password"
-              placeholder="enter your password"
-              component={CustomInput}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="passwordConfirmInput">
+              </Label>
+              <Field
+                type="password"
+                id="passwordInput"
+                name="password"
+                placeholder="enter your password"
+                component={CustomInput}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="passwordConfirmInput">
               Confirm Password
-            </Label>
-            <Field
-              type="password"
-              name="passwordConfirm"
-              id="passwordConfirmInput"
-              placeholder="repeat your password"
-              component={CustomInput}
-            />
-          </FormGroup>
-          <FormGroup check>
-            <Field
-              id="rememberInput"
-              type="checkbox"
-              name="keepSignedIn"
-              className="form-check-input"
-              component={CustomInput}
-              withoutValidation
-            />
-            <Label
-              htmlFor="rememberInput"
-              className="form-check-label"
-            >
+              </Label>
+              <Field
+                type="password"
+                name="passwordConfirm"
+                id="passwordConfirmInput"
+                placeholder="repeat your password"
+                component={CustomInput}
+              />
+            </FormGroup>
+            <FormGroup check>
+              <Field
+                id="rememberInput"
+                type="checkbox"
+                name="keepSignedIn"
+                className="form-check-input"
+                component={CustomInput}
+                withoutValidation
+              />
+              <Label
+                htmlFor="rememberInput"
+                className="form-check-label"
+              >
               Keep me signed in
-            </Label>
-          </FormGroup>
-          { isCustomerAuthenticating
-            ? (<Progress className="mt-3" animated value={100} />)
-            : (
-              <div className="d-flex justify-content-between mt-3">
-                <Link
-                  to="/signin"
-                  className="btn btn-outline-primary"
-                >
+              </Label>
+            </FormGroup>
+            { isCustomerAuthenticating
+              ? (<Progress className="mt-3" animated value={100} />)
+              : (
+                <div className="d-flex justify-content-between mt-3">
+                  <Link
+                    to="/signin"
+                    className="btn btn-outline-primary"
+                  >
                 I already have an account
-                </Link>
-                <Button
-                  type="submit"
-                  className="float-right"
-                  color="primary"
-                  disabled={!isValid}
-                >
+                  </Link>
+                  <Button
+                    type="submit"
+                    className="float-right"
+                    color="primary"
+                    disabled={!isValid}
+                  >
                 Sign Up
-                </Button>
-              </div>
-            )
-          }
-        </Form>
+                  </Button>
+                </div>
+              )
+            }
+          </Form>
+        </Fragment>
       )}
     </Formik>
   );

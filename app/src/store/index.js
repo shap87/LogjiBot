@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import authReducer from './auth/authReducer';
-import layoutReducer from './layout/layoutReducer';
+import auth from './auth/authReducer';
+import layout from './layout/layoutReducer';
+import purchaseOrders from './purchaseOrders/purchaseOrdersReducer';
 
 export const store = combineReducers({
-  auth: authReducer,
-  layout: layoutReducer,
+  auth,
+  layout,
+  purchaseOrders,
 });

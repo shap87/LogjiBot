@@ -8,11 +8,11 @@ const handleValidToken = createAction(actionTypes.TOKEN_VALID, 'token');
 
 const handleCustomerAuthentication = createAction(actionTypes.AUTHENTICATE_CUSTOMER);
 const handleFailedAuthentication = createAction(actionTypes.AUTHENTICATION_FAILED, 'error');
-const handleSuccessfulAuthentication = createAction(actionTypes.AUTHENTICATION_SUCCEED, 'token');
+const handleSuccessfulAuthentication = createAction(actionTypes.AUTHENTICATION_SUCCEED, 'token', 'isKeepingSignedIn');
 
 const handleCustomerCreation = createAction(actionTypes.CREATE_CUSTOMER);
 const handleFailedCreation = createAction(actionTypes.CREATING_FAILED, 'error');
-const handleSuccessfulCreation = createAction(actionTypes.CREATING_SUCCEED, 'user', 'token');
+const handleSuccessfulCreation = createAction(actionTypes.CREATING_SUCCEED, 'user', 'token', 'isKeepingSignedIn');
 
 export const setInitialTokenValidation = createAction(actionTypes.INITIAL_VALIDATION_DONE);
 
@@ -31,32 +31,28 @@ export const validateToken = (currentToken) => (dispatch, getState) => {
     });
 };
 
-export const authenticateCustomer = (credentials, isKeepingSignedIn) => (dispatch) => {
+export const authenticateCustomer = (credentials, isKeepingSignedIn = false) => (dispatch) => {
   dispatch(handleCustomerAuthentication());
 
   return authService.authenticateCustomer(credentials)
-    .then(({ access }) => {
-      if (isKeepingSignedIn) {
-        authService.setAuthTokenInStorage(access);
-      }
-
-      dispatch(handleSuccessfulAuthentication(access));
+    .then(({ data }) => {
+      const { access } = data;
+      authService.setAuthTokenInStorage(access);
+      dispatch(handleSuccessfulAuthentication(access, isKeepingSignedIn));
     })
     .catch(({ error }) => dispatch(handleFailedAuthentication(error)));
 };
 
-export const createCustomer = (credentials, isKeepingSignedIn) => (dispatch) => {
+export const createCustomer = (credentials, isKeepingSignedIn = false) => (dispatch) => {
   dispatch(handleCustomerCreation());
 
   return authService.createCustomer(credentials)
-    .then(({ access }) => {
-      if (isKeepingSignedIn) {
-        authService.setAuthTokenInStorage(access);
-      }
-
+    .then(({ data }) => {
+      const { access } = data;
+      authService.setAuthTokenInStorage(access);
       const { username, email } = credentials;
 
-      dispatch(handleSuccessfulCreation({ username, email }, access));
+      dispatch(handleSuccessfulCreation({ username, email }, access, isKeepingSignedIn));
     })
     .catch(({ error }) => dispatch(handleFailedCreation(error)));
 };
