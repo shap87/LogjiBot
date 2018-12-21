@@ -72,8 +72,8 @@ def auth_redirect(request):
 
     #send JWT token to the frontend
     return redirect("http://" + str(settings.APP_URL) + ':' + str(settings.APP_PORT)\
-                + '/auth?access_token=' + text_type(refresh.access_token)\
-                + '&refresh_token=' + text_type(refresh))
+                + '/auth?access=' + text_type(refresh.access_token)\
+                + '&refresh=' + text_type(refresh))
 
 
 @api_view(['POST'])

@@ -77,6 +77,8 @@
     "jsx-a11y/no-autofocus": "off",
     "arrow-parens": ["error", "always"],
     "import/no-absolute-path": "off",
-    "react/no-array-index-key": ["warn", "always"]
+    "react/no-array-index-key": ["warn", "always"],
+    "react/jsx-one-expression-per-line": 0,
+    "linebreak-style":0
   }
 }
