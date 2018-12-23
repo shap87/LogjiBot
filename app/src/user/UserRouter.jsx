@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 
-import UserSettings from './components/UserSettings';
+import UserSettingsContainer from './components/UserSettings';
 
 export default function UserRouter({ match }) {
   const { path } = match;
@@ -10,7 +10,7 @@ export default function UserRouter({ match }) {
   return (
     <section>
       <Switch>
-        <Route exact path={path} component={UserSettings} />
+        <Route exact path={path} component={UserSettingsContainer} />
       </Switch>
     </section>
   );

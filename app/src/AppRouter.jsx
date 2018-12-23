@@ -103,18 +103,14 @@ const mapStateToProps = ({ auth, layout }) => ({
   ...auth,
   ...layout,
 });
-const mapDispatchToProps = (dispatch) => ({
-  validateTokenOnMount: (token) => {
-    dispatch(validateToken(token));
-  },
-  setInitialTokenValidationOnMount: () => {
-    dispatch(setInitialTokenValidation());
-  },
+const mapActionsToProps = (dispatch) => ({
+  validateTokenOnMount: (token) => dispatch(validateToken(token)),
+  setInitialTokenValidationOnMount: () => dispatch(setInitialTokenValidation()),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapActionsToProps
 )(AppRouter);
 
 AppRouter.propTypes = {

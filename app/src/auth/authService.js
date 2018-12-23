@@ -16,8 +16,8 @@ export const setAuthTokenInStorage = (token) => {
   localStorage.setItem('auth_token', token);
 };
 
-export const validateToken = (token) => request(
-  'post', '/token/refresh/', { refresh: token }
+export const validateToken = () => request(
+  'get', '/user/whoami/', {}, true
 );
 
 export const authenticateCustomer = ({ username, password }) => request(

@@ -4,17 +4,39 @@ import { Progress } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
 export default class OAuth extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hasValidationBeenFailed: false,
+    };
+
+    this.handleTokenValidation = this.handleTokenValidation.bind(this);
+  }
+
   componentDidMount() {
     const { validateToken, location } = this.props;
 
     const params = new URLSearchParams(location.search);
-    const token = params.get('token');
+    const token = params.get('access');
 
-    validateToken(token);
+    validateToken(token)
+      .then(this.handleTokenValidation);
+  }
+
+  handleTokenValidation() {
+    const { isAuthenticated } = this.props;
+
+    this.setState({ hasValidationBeenFailed: !isAuthenticated });
   }
 
   render() {
+    const { hasValidationBeenFailed } = this.state;
     const { isAuthenticated } = this.props;
+
+    if (hasValidationBeenFailed) {
+      return (<Redirect to="/signin" />);
+    }
 
     if (isAuthenticated) {
       return (<Redirect to="/" />);

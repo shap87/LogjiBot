@@ -22,7 +22,7 @@ export const validateToken = (currentToken) => (dispatch, getState) => {
   dispatch(handleTokenValidation());
 
   return authService.validateToken(currentToken)
-    .then(({ token }) => dispatch(handleValidToken(token)))
+    .then(() => dispatch(handleValidToken(currentToken)))
     .catch(({ error }) => dispatch(handleInvalidToken(error)))
     .finally(() => {
       if (!auth.hasInitialTokenValidationBeenDone) {
