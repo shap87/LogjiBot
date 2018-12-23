@@ -9,5 +9,5 @@ class QuickBooksUser(models.Model):
     realm_id = models.CharField(verbose_name="QB's realm id",max_length=50)
 
     def __str__(self):
-        return self.user
+        return str(self.user)
 # Create your models here.

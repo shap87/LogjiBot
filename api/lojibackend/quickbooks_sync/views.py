@@ -70,20 +70,35 @@ def auth_redirect(request):
     #generate JWT token for user
     refresh = MyTokenObtainPairSerializer.get_token(user)
 
-    #send JWT token to the frontend
-    return redirect("http://" + str(settings.APP_URL) + ':' + str(settings.APP_PORT)\
-                + '/auth?access=' + text_type(refresh.access_token)\
-                + '&refresh=' + text_type(refresh))
+    #make first sync
+    response = fetch_purchase_orders(user)
+
+    if(response.status_code == 200):
+        #send JWT token to the frontend
+        return redirect("http://" + str(settings.APP_URL) + ':' + str(settings.APP_PORT)\
+                    + '/oauth?access=' + text_type(refresh.access_token)\
+                    + '&refresh=' + text_type(refresh))
+    return response
 
 
 @api_view(['POST'])
 def sync(request):
     '''
+    API route for synchronization with QB
+    '''
+    return fetch_purchase_orders(request.user)
+
+
+
+
+
+def fetch_purchase_orders(user):
+    '''
     Append to purchase orders models new items from QB database
     '''
     #get access_token for quick books
     try:
-        qb_user = QuickBooksUser.objects.get(user=request.user)
+        qb_user = QuickBooksUser.objects.get(user=user)
     except QuickBooksUser.DoesNotExist:
         return Response(message="SignUp with QuickBooks first",status=401)
     access_token=qb_user.access_token
@@ -123,7 +138,7 @@ def sync(request):
                                                                          vendor = vendor)
             if created:
                 purchase_order.vendor = vendor
-                purchase_order.company = request.user.company_id
+                purchase_order.company = user.company_id
                 purchase_order.time_created = po['MetaData']['CreateTime']
                 purchase_order.time_modified = po['MetaData']['LastUpdatedTime']
                 purchase_order.status = 'OA'
