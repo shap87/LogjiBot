@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Route, Switch, Link,
-} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import DashboardContainer from './components/Dashboard';
 
 export default function DashboardRouter({ match }) {
   const { path } = match;
 
   return (
     <Switch>
-      <Route exact path={path} render={() => <Link to="/user-settings">Main</Link>} />
-      <Route path={`${path}/user-settings`} render={() => <h1>user</h1>} />
+      <Route exact path={path} component={DashboardContainer} />
     </Switch>
   );
 }

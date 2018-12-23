@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { Button } from 'reactstrap';
 
 import FaIcon from '../../utils/components/FaIcon';
 import SimpleTooltip from '../../utils/components/SimpleTooltip';
+import * as layoutActions from '../../store/layout/layoutActions';
 
-export default function Header({ toggleSidebar, isSidebarCollapsed }) {
+export function Header({ toggleSidebar, isSidebarCollapsed, title }) {
   const iconClasses = classNames('st-header-toggle', { collapsed: isSidebarCollapsed });
 
   return (
-    <nav className="st-header navbar p-0">
+    <div className="st-header d-flex align-items-center p-0 mb-3">
       <Button
         id="collapseSidebar"
-        className="shadow-none border-0 st-icon-btn"
+        className="shadow-none border-0 st-icon-btn mr-3"
         color="light"
         onClick={toggleSidebar}
       >
@@ -22,11 +24,20 @@ export default function Header({ toggleSidebar, isSidebarCollapsed }) {
       <SimpleTooltip target="collapseSidebar" placement="right" trigger="hover">
         { isSidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar' }
       </SimpleTooltip>
-    </nav>
+      <h3 className="m-0">{title}</h3>
+    </div>
   );
 }
 
+const mapStateToProps = ({ layout }) => ({ ...layout });
+const mapActionsToProps = (dispatch) => ({
+  toggleSidebar: () => dispatch(layoutActions.toggleSidebar()),
+});
+
+export default connect(mapStateToProps, mapActionsToProps)(Header);
+
 Header.propTypes = {
+  title: PropTypes.string.isRequired,
   isSidebarCollapsed: PropTypes.bool.isRequired,
   toggleSidebar: PropTypes.func.isRequired,
 };

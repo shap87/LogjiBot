@@ -3,11 +3,17 @@ import createReducer from '../../utils/createReducer';
 
 const initialState = {
   isSidebarCollapsed: false,
+  title: 'Loji',
 };
 
 export default createReducer(initialState, {
-  [actionTypes.TOGGLE_SIDEBAR]: ({ isSidebarCollapsed, ...sidebar }) => ({
-    ...sidebar,
+  [actionTypes.TOGGLE_SIDEBAR]: ({ isSidebarCollapsed, ...state }) => ({
+    ...state,
     isSidebarCollapsed: !isSidebarCollapsed,
+  }),
+
+  [actionTypes.UPDATE_TITLE]: (state, action) => ({
+    ...state,
+    title: action.title,
   }),
 });

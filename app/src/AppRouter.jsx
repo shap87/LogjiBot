@@ -7,14 +7,13 @@ import { connect } from 'react-redux';
 
 import DashboardRouter from './dashboard/DashboardRouter';
 import PurchaseOrdersRouter from './purchaseOrders/PurchaseOrdersRouter';
-import UserSettingsRouter from './userSettings/UserSettingsRouter';
+import UserRouter from './user/UserRouter';
 import {
   ForgotPassword, ResetPassword, SignIn, SignUp, OAuth,
 } from './auth/routes';
 import { PrivateRoute, NotMatch } from './auth/components';
 import { Header, Sidebar } from './layout/components';
 import { validateToken, setInitialTokenValidation } from './store/auth/authActions';
-import { toggleSidebar } from './store/layout/layoutActions';
 import { getAuthTokenFromStorage } from './auth/authService';
 
 export class AppRouter extends PureComponent {
@@ -38,7 +37,7 @@ export class AppRouter extends PureComponent {
 
   render() {
     const {
-      hasInitialTokenValidationBeenDone, isTokenValid, isSidebarCollapsed, toggleSidebarWidth,
+      hasInitialTokenValidationBeenDone, isTokenValid, isSidebarCollapsed,
       validateTokenOnMount,
     } = this.props;
 
@@ -57,17 +56,8 @@ export class AppRouter extends PureComponent {
             : null
           }
 
-          <div className="d-flex flex-column flex-grow-1 rounded-left px-4 py-2 bg-light shadow-z3">
-            { isAuthenticated
-              ? (
-                <Header
-                  isSidebarCollapsed={isSidebarCollapsed}
-                  toggleSidebar={toggleSidebarWidth}
-                />
-              )
-              : null
-            }
-
+          <div className="d-flex flex-column flex-grow-1 rounded-left px-4 py-2 bg-white shadow-z3">
+            { isAuthenticated ? (<Header />) : null }
             <Switch>
               <Route path="/" render={() => <Redirect to="/dashboard" />} exact />
               <Route
@@ -96,7 +86,7 @@ export class AppRouter extends PureComponent {
               />
               <PrivateRoute
                 path="/user-settings"
-                component={UserSettingsRouter}
+                component={UserRouter}
                 isAuthenticated={isAuthenticated}
               />
               <Route component={NotMatch} />
@@ -120,7 +110,6 @@ const mapDispatchToProps = (dispatch) => ({
   setInitialTokenValidationOnMount: () => {
     dispatch(setInitialTokenValidation());
   },
-  toggleSidebarWidth: () => dispatch(toggleSidebar()),
 });
 
 export default connect(
@@ -134,5 +123,4 @@ AppRouter.propTypes = {
   isTokenValid: PropTypes.bool.isRequired,
   hasInitialTokenValidationBeenDone: PropTypes.bool.isRequired,
   isSidebarCollapsed: PropTypes.bool.isRequired,
-  toggleSidebarWidth: PropTypes.func.isRequired,
 };
