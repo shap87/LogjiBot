@@ -36,8 +36,11 @@ export const authenticateCustomer = (credentials, isKeepingSignedIn = false) => 
 
   return authService.authenticateCustomer(credentials)
     .then(({ data }) => {
-      const { access } = data;
-      authService.setAuthTokenInStorage(access);
+      const { access, refresh } = data;
+
+      authService.setAccessTokenInStorage(access);
+      authService.setRefreshTokenInStorage(refresh);
+
       dispatch(handleSuccessfulAuthentication(access, isKeepingSignedIn));
     })
     .catch(({ error }) => dispatch(handleFailedAuthentication(error)));
@@ -48,8 +51,11 @@ export const createCustomer = (credentials, isKeepingSignedIn = false) => (dispa
 
   return authService.createCustomer(credentials)
     .then(({ data }) => {
-      const { access } = data;
-      authService.setAuthTokenInStorage(access);
+      const { access, refresh } = data;
+
+      authService.setAccessTokenInStorage(access);
+      authService.setRefreshTokenInStorage(refresh);
+
       const { username, email } = credentials;
 
       dispatch(handleSuccessfulCreation({ username, email }, access, isKeepingSignedIn));

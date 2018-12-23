@@ -14,7 +14,7 @@ import {
 import { PrivateRoute, NotMatch } from './auth/components';
 import { Header, Sidebar } from './layout/components';
 import { validateToken, setInitialTokenValidation } from './store/auth/authActions';
-import { getAuthTokenFromStorage } from './auth/authService';
+import { getAccessTokenFromStorage } from './auth/authService';
 
 export class AppRouter extends PureComponent {
   componentDidMount() {
@@ -26,7 +26,7 @@ export class AppRouter extends PureComponent {
       return;
     }
 
-    const currentToken = getAuthTokenFromStorage();
+    const currentToken = getAccessTokenFromStorage();
 
     if (!currentToken) {
       setInitialTokenValidationOnMount();

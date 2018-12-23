@@ -1,19 +1,35 @@
 import { request } from '../utils/apiService';
 
-export const getAuthTokenFromStorage = () => {
+export const getAccessTokenFromStorage = () => {
   if (!localStorage) {
     return null;
   }
 
-  return localStorage.getItem('auth_token');
+  return localStorage.getItem('access');
 };
 
-export const setAuthTokenInStorage = (token) => {
+export const getRefreshTokenFromStorage = () => {
+  if (!localStorage) {
+    return null;
+  }
+
+  return localStorage.getItem('refresh');
+};
+
+export const setAccessTokenInStorage = (token) => {
   if (!localStorage) {
     return;
   }
 
-  localStorage.setItem('auth_token', token);
+  localStorage.setItem('access', token);
+};
+
+export const setRefreshTokenInStorage = (token) => {
+  if (!localStorage) {
+    return;
+  }
+
+  localStorage.setItem('refresh', token);
 };
 
 export const validateToken = () => request(
@@ -26,4 +42,8 @@ export const authenticateCustomer = ({ username, password }) => request(
 
 export const createCustomer = ({ email, username, password }) => request(
   'post', '/user/registration/', { username, password, email }
+);
+
+export const synchronizeWithQB = () => request(
+  'get', '/qb/sync/', {}, true
 );
