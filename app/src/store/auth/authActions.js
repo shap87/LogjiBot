@@ -20,6 +20,10 @@ const handleSuccessfulCreation = createAction(
   'access', 'token', 'isKeepingSignedIn'
 );
 
+export const handleTokenRefreshing = createAction(actionTypes.REFRESH_TOKEN, 'promise');
+export const handleSuccessfulRefreshing = createAction(actionTypes.REFRESHING_SUCCEED, 'access');
+export const handleFailedRefreshing = createAction(actionTypes.REFRESHING_FAILED, 'error');
+
 export const setInitialTokenValidation = createAction(actionTypes.INITIAL_VALIDATION_DONE);
 
 export const validateToken = (accessToken, refreshToken) => (dispatch, getState) => {
@@ -47,7 +51,7 @@ export const authenticateCustomer = (credentials, isKeepingSignedIn = false) => 
       authService.setAccessTokenInStorage(access);
       authService.setRefreshTokenInStorage(refresh);
 
-      dispatch(handleSuccessfulAuthentication(access, refresh, isKeepingSignedIn));
+      return dispatch(handleSuccessfulAuthentication(access, refresh, isKeepingSignedIn));
     })
     .catch(({ error }) => dispatch(handleFailedAuthentication(error)));
 };
@@ -62,7 +66,7 @@ export const createCustomer = (credentials, isKeepingSignedIn = false) => (dispa
       authService.setAccessTokenInStorage(access);
       authService.setRefreshTokenInStorage(refresh);
 
-      dispatch(handleSuccessfulCreation(access, refresh, isKeepingSignedIn));
+      return dispatch(handleSuccessfulCreation(access, refresh, isKeepingSignedIn));
     })
     .catch(({ error }) => dispatch(handleFailedCreation(error)));
 };

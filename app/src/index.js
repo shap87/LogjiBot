@@ -8,12 +8,12 @@ import 'font-awesome/scss/font-awesome.scss';
 import './assets/main.scss';
 
 import App from './App';
+import { jwt } from './utils/middleware/jwt';
 import { store } from './store';
-
 import * as serviceWorker from './serviceWorker';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const appStore = createStore(store, composeEnhancers(applyMiddleware(thunk)));
+const appStore = createStore(store, composeEnhancers(applyMiddleware(jwt, thunk)));
 
 ReactDOM.render(<App store={appStore} />, document.getElementById('root'));
 

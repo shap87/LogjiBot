@@ -47,3 +47,7 @@ export const createCustomer = ({ email, username, password }) => request(
 export const synchronizeWithQB = () => request(
   'post', '/qb/sync/', {}, true
 );
+
+export const refreshToken = (refresh) => request(
+  'post', '/token/refresh/', { refresh }
+);
