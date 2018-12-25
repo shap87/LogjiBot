@@ -6,7 +6,7 @@ import {
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 
-import CustomInput from '../../utils/components/CustomInput';
+import { CustomInput } from '../../utils';
 
 export default function ForgotPasswordForm({ onSubmit }) {
   const validationSchema = yup.object().shape({

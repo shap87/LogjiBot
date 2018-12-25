@@ -6,8 +6,7 @@ import {
 } from 'reactstrap';
 import classNames from 'classnames';
 
-import FaIcon from '../../utils/components/FaIcon';
-import SimpleTooltip from '../../utils/components/SimpleTooltip';
+import { FaIcon, SimpleTooltip, SimplePopover } from '../../utils';
 
 export default function Sidebar({ isSidebarCollapsed }) {
   const sidebarClasses = classNames(
@@ -58,6 +57,9 @@ export default function Sidebar({ isSidebarCollapsed }) {
           <SimpleTooltip target="userSettings" trigger="hover" placement="right">
             User Settings
           </SimpleTooltip>
+          <SimplePopover target="userSettings" trigger="click" placement="right">
+            test
+          </SimplePopover>
 
           <Button
             id="generalSettings"

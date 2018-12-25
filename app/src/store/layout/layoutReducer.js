@@ -1,5 +1,5 @@
 import * as actionTypes from './layoutActionTypes';
-import createReducer from '../../utils/createReducer';
+import { createReducer } from '../../utils';
 
 const initialState = {
   isSidebarCollapsed: false,

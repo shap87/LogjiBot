@@ -7,8 +7,7 @@ import {
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 
-import CustomInput from '../../utils/components/CustomInput';
-import Divider from '../../utils/components/Divider';
+import { CustomInput, Divider } from '../../utils';
 import SignInWithIntuitButton from './SignInWithIntuitButton';
 
 export default function SignUpForm({ onSubmit, isCustomerAuthenticating }) {

@@ -1,4 +1,4 @@
-import { request } from '../utils/apiService';
+import { request } from '../utils';
 
 export const getAccessTokenFromStorage = () => {
   if (!localStorage) {

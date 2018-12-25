@@ -1,5 +1,5 @@
 import * as actionTypes from './authActionTypes';
-import createAction from '../../utils/createAction';
+import { createAction } from '../../utils';
 import * as authService from '../../auth/authService';
 
 const handleTokenValidation = createAction(actionTypes.VALIDATE_TOKEN);

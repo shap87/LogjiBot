@@ -1,5 +1,5 @@
 import * as actionTypes from './purchaseOrdersActionTypes';
-import createReducer from '../../utils/createReducer';
+import { createReducer } from '../../utils';
 
 const initialState = {
   arePurchaseOrdersFetching: false,

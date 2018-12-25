@@ -8,7 +8,7 @@ import 'font-awesome/scss/font-awesome.scss';
 import './assets/main.scss';
 
 import App from './App';
-import { jwt } from './utils/middleware/jwt';
+import { jwt } from './utils';
 import { store } from './store';
 import * as serviceWorker from './serviceWorker';
 

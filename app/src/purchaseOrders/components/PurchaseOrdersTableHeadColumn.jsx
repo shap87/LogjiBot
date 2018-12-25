@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import FaIcon from '../../utils/components/FaIcon';
+import { FaIcon } from '../../utils';
 
 export default class PurchaseOrdersTableHeadColumn extends Component {
   constructor(props) {

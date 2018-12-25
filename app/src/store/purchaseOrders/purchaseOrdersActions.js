@@ -1,5 +1,5 @@
 import * as actionTypes from './purchaseOrdersActionTypes';
-import createAction from '../../utils/createAction';
+import { createAction } from '../../utils';
 import * as purchaseOrdersService from '../../purchaseOrders/purchaseOrdersService';
 
 const handleFetchPurchaseOrders = createAction(actionTypes.FETCH_PURCHASE_ORDERS);

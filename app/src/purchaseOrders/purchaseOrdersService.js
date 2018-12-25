@@ -1,4 +1,4 @@
-import { request } from '../utils/apiService';
+import { request } from '../utils';
 
 export const fetchPurchaseOrders = (accessToken) => request(
   'get', '/po/purchaseorders/', {}, accessToken

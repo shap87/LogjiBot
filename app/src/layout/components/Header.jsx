@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { Button } from 'reactstrap';
 
-import FaIcon from '../../utils/components/FaIcon';
-import SimpleTooltip from '../../utils/components/SimpleTooltip';
 import * as layoutActions from '../../store/layout/layoutActions';
-import SyncQB from '../../utils/components/SyncQB';
+import { FaIcon, SimpleTooltip, SyncQB } from '../../utils';
+
 
 export function Header({ toggleSidebar, isSidebarCollapsed, title }) {
   const iconClasses = classNames('st-header-toggle', { collapsed: isSidebarCollapsed });
