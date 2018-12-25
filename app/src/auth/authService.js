@@ -45,5 +45,5 @@ export const createCustomer = ({ email, username, password }) => request(
 );
 
 export const synchronizeWithQB = () => request(
-  'get', '/qb/sync/', {}, true
+  'post', '/qb/sync/', {}, true
 );

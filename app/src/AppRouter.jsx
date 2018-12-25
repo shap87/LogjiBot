@@ -14,7 +14,7 @@ import {
 import { PrivateRoute, NotMatch } from './auth/components';
 import { Header, Sidebar } from './layout/components';
 import { validateToken, setInitialTokenValidation } from './store/auth/authActions';
-import { getAccessTokenFromStorage } from './auth/authService';
+import { getAccessTokenFromStorage, getRefreshTokenFromStorage } from './auth/authService';
 
 export class AppRouter extends PureComponent {
   componentDidMount() {
@@ -26,12 +26,13 @@ export class AppRouter extends PureComponent {
       return;
     }
 
-    const currentToken = getAccessTokenFromStorage();
+    const accessToken = getAccessTokenFromStorage();
+    const refreshToken = getRefreshTokenFromStorage();
 
-    if (!currentToken) {
-      setInitialTokenValidationOnMount();
+    if (accessToken && refreshToken) {
+      validateTokenOnMount(accessToken, refreshToken);
     } else {
-      validateTokenOnMount(currentToken);
+      setInitialTokenValidationOnMount();
     }
   }
 
@@ -104,7 +105,7 @@ const mapStateToProps = ({ auth, layout }) => ({
   ...layout,
 });
 const mapActionsToProps = (dispatch) => ({
-  validateTokenOnMount: (token) => dispatch(validateToken(token)),
+  validateTokenOnMount: (accessToken, refreshToken) => dispatch(validateToken(accessToken, refreshToken)),
   setInitialTokenValidationOnMount: () => dispatch(setInitialTokenValidation()),
 });
 

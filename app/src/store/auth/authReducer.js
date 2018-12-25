@@ -5,10 +5,10 @@ const initialState = {
   hasInitialTokenValidationBeenDone: false,
   isTokenValid: false,
   isTokenValidating: false,
-  token: null,
+  accessToken: null,
+  refreshToken: null,
   isCustomerAuthenticated: false,
   isCustomerAuthenticating: false,
-  user: {},
   isKeepingSignedIn: false,
 };
 
@@ -22,7 +22,8 @@ export default createReducer(initialState, {
     ...state,
     isTokenValidating: false,
     isTokenValid: true,
-    token: action.token,
+    accessToken: action.access,
+    refreshToken: action.refresh,
   }),
 
   [actionTypes.TOKEN_INVALID]: (state) => ({
@@ -41,7 +42,8 @@ export default createReducer(initialState, {
     isCustomerAuthenticating: false,
     isCustomerAuthenticated: true,
     isTokenValid: true,
-    token: action.token,
+    accessToken: action.access,
+    refreshToken: action.refresh,
     isKeepingSignedIn: action.isKeepingSignedIn,
   }),
 
@@ -61,8 +63,8 @@ export default createReducer(initialState, {
     isCustomerAuthenticating: false,
     isCustomerAuthenticated: true,
     isTokenValid: true,
-    token: action.token,
-    user: action.user,
+    accessToken: action.access,
+    refreshToken: action.refresh,
     isKeepingSignedIn: action.isKeepingSignedIn,
   }),
 

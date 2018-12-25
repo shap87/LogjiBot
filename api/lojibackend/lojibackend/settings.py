@@ -20,7 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_URL = os.environ.get('APP_URL')
 APP_PORT = os.environ.get('APP_PORT')
 API_URL = os.environ.get('API_URL')
+API_PORT = os.environ.get('API_PORT')
 DB_URL = os.environ.get('DB_URL')
+
+if(not API_URL):
+    API_URL = 'localhost'
+    API_PORT = '8000'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -32,7 +37,10 @@ SECRET_KEY = '97&pg@a4paw&x(zl#ydgxpj0!*%bovllhhtk%2p@y&y$j3pok4'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    API_URL
+    API_URL,
+    '127.0.0.1',
+    'localhost',
+    '192.168.99.100'
 ]
 
 
@@ -54,9 +62,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
-    'api', 
+    'api',
     'users',
     'purchase_orders',
+    'quickbooks_sync'
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -85,7 +94,7 @@ MIDDLEWARE = [
 # CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
-    APP_URL + ':' + APP_PORT
+    str(APP_URL) + ':' + str(APP_PORT)
 )
 
 
@@ -168,3 +177,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated', ),
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)
 }
+
+
+#Intuit Oauth2
+from intuitlib.enums import Scopes
+INTUIT_CLIENT_ID = "Q0kbUO2D1EqcPLdxXJN40jXzh95YvUysVyqbiO6TKOn7uUnKdt"
+INTUIT_CLIENT_SECRET =  "IC0S4vmg7C6Y5wiQngelxEqlha8PCcXNM0OZo9V7"
+INTUIT_REDIRECT_URI = "http://"+str(API_URL)+":" + str(API_PORT) + "/api/v1/qb/redirect/"
+INTUIT_ENVIROMENT = "sandbox"
+INTUIT_SCOPES = [Scopes.OPENID,Scopes.ACCOUNTING,Scopes.EMAIL,Scopes.PROFILE]

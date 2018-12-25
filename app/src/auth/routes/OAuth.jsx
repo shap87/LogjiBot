@@ -18,9 +18,10 @@ export default class OAuth extends Component {
     const { validateToken, location } = this.props;
 
     const params = new URLSearchParams(location.search);
-    const token = params.get('access');
+    const accessToken = params.get('access');
+    const refreshToken = params.get('refresh');
 
-    validateToken(token)
+    validateToken(accessToken, refreshToken)
       .then(this.handleTokenValidation);
   }
 

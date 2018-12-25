@@ -13,6 +13,7 @@ urlpatterns = [
     path('', views.UserListView.as_view()),
     path('registration/', views.RegisterUsersView.as_view()),
     path('teaminvite/', views.PreRegisteredTeamView.as_view()),
-    path('teamregistration/', views.TeamRegistrationView.as_view())
+    path('teamregistration/', views.TeamRegistrationView.as_view()),
+    path('whoami/', views.UserInfoView.as_view())
     # path('rest-auth/', include('rest_auth.urls')),
 ]
