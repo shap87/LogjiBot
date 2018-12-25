@@ -96,4 +96,6 @@ export default createReducer(initialState, {
     ...state,
     refreshingTokenPromise: null,
   }),
+
+  [actionTypes.SIGN_OUT]: () => initialState,
 });

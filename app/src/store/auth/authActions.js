@@ -20,6 +20,8 @@ const handleSuccessfulCreation = createAction(
   'access', 'token', 'isKeepingSignedIn'
 );
 
+const handleSigningOut = createAction(actionTypes.SIGN_OUT);
+
 export const handleTokenRefreshing = createAction(actionTypes.REFRESH_TOKEN, 'promise');
 export const handleSuccessfulRefreshing = createAction(actionTypes.REFRESHING_SUCCEED, 'access');
 export const handleFailedRefreshing = createAction(actionTypes.REFRESHING_FAILED, 'error');
@@ -69,4 +71,11 @@ export const createCustomer = (credentials, isKeepingSignedIn = false) => (dispa
       return dispatch(handleSuccessfulCreation(access, refresh, isKeepingSignedIn));
     })
     .catch(({ error }) => dispatch(handleFailedCreation(error)));
+};
+
+export const signOut = () => (dispatch) => {
+  dispatch(handleSigningOut());
+
+  authService.setAccessTokenInStorage(null);
+  authService.setRefreshTokenInStorage(null);
 };

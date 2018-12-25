@@ -6,7 +6,8 @@ import {
 } from 'reactstrap';
 import classNames from 'classnames';
 
-import { FaIcon, SimpleTooltip, SimplePopover } from '../../utils';
+import { FaIcon, SimpleTooltip } from '../../utils';
+import UserMenuContainer from '../../user/components/UserMenu';
 
 export default function Sidebar({ isSidebarCollapsed }) {
   const sidebarClasses = classNames(
@@ -21,7 +22,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
 
   return (
     <aside className={sidebarClasses}>
-      <div className="d-flex flex-column align-items-center justify-content-between st-sidebar--main bg-primary pt-2">
+      <div className="d-flex flex-column align-items-center justify-content-between st-sidebar--main bg-primary py-2">
         <Link to="/">
           <h2 id="loji" className="text-white">
             <FaIcon iconName="globe" />
@@ -43,34 +44,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
             Notifications
           </SimpleTooltip>
 
-
-          <Link to="/user-settings">
-            <Button
-              id="userSettings"
-              className="shadow-none border-0 rounded-circle st-icon-btn"
-              color="primary"
-              tag="div"
-            >
-              <FaIcon iconName="user" />
-            </Button>
-          </Link>
-          <SimpleTooltip target="userSettings" trigger="hover" placement="right">
-            User Settings
-          </SimpleTooltip>
-          <SimplePopover target="userSettings" trigger="click" placement="right">
-            test
-          </SimplePopover>
-
-          <Button
-            id="generalSettings"
-            className="shadow-none border-0 rounded-circle st-icon-btn"
-            color="primary"
-          >
-            <FaIcon iconName="gear" />
-          </Button>
-          <SimpleTooltip target="generalSettings" trigger="hover" placement="right">
-            General Settings
-          </SimpleTooltip>
+          <UserMenuContainer />
         </div>
       </div>
       <div className="d-flex flex-column flex-grow-1 flex-shrink-1 px-3 pt-5">
