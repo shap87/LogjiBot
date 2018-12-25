@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { apiUrl, apiVersion } from '../config';
-import { getAccessTokenFromStorage } from '../auth/authService';
 
-export const request = (method, url, params = {}, isAuthenticated) => {
+export const request = (method, url, params = {}, accessToken) => {
   const body = method === 'get' ? 'params' : 'data';
   const config = {
     method,
@@ -10,9 +9,9 @@ export const request = (method, url, params = {}, isAuthenticated) => {
     [body]: params,
   };
 
-  if (isAuthenticated) {
+  if (accessToken) {
     config.headers = {
-      Authorization: `Bearer ${getAccessTokenFromStorage()}`,
+      Authorization: `Bearer ${accessToken}`,
     };
   }
 

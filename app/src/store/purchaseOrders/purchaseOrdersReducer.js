@@ -3,6 +3,7 @@ import createReducer from '../../utils/createReducer';
 
 const initialState = {
   arePurchaseOrdersFetching: false,
+  arePurchaseOrdersFetched: false,
   purchaseOrders: [],
 };
 
@@ -15,6 +16,7 @@ export default createReducer(initialState, {
   [actionTypes.FETCHING_SUCCEED]: (state, action) => ({
     ...state,
     arePurchaseOrdersFetching: false,
+    arePurchaseOrdersFetched: true,
     purchaseOrders: action.purchaseOrders,
   }),
 

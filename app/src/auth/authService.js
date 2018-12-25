@@ -32,8 +32,8 @@ export const setRefreshTokenInStorage = (token) => {
   localStorage.setItem('refresh', token);
 };
 
-export const validateToken = () => request(
-  'get', '/user/whoami/', {}, true
+export const validateToken = (accessToken) => request(
+  'get', '/user/whoami/', {}, accessToken
 );
 
 export const authenticateCustomer = ({ username, password }) => request(

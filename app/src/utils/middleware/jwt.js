@@ -46,9 +46,7 @@ export const jwt = ({ dispatch, getState }) => (next) => (action) => {
 
 const hasAccessTokenBeenExpired = ({ exp }) => {
   const today = new Date();
-  const todayInSeconds = Math.floor(today.valueOf() / 1000);
+  const refreshThreshold = Math.floor(today.valueOf() / 1000) + 240;
 
-  console.log(new Date(exp * 1000));
-
-  return exp - todayInSeconds < 100000;
+  return exp < refreshThreshold;
 };

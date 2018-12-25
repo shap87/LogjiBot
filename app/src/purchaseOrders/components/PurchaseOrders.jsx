@@ -12,9 +12,12 @@ import * as layoutActions from '../../store/layout/layoutActions';
 
 export class PurchaseOrders extends Component {
   componentDidMount() {
-    const { fetchPurchaseOrders, updateTitle } = this.props;
+    const { fetchPurchaseOrders, updateTitle, arePurchaseOrdersFetched } = this.props;
 
-    fetchPurchaseOrders();
+    if (!arePurchaseOrdersFetched) {
+      fetchPurchaseOrders();
+    }
+
     updateTitle('Purchase Orders');
   }
 
@@ -75,6 +78,7 @@ const mapActionsToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapActionsToProps)(PurchaseOrders);
 
 PurchaseOrders.propTypes = {
+  arePurchaseOrdersFetched: PropTypes.bool.isRequired,
   purchaseOrders: PropTypes.array.isRequired,
   fetchPurchaseOrders: PropTypes.func.isRequired,
   updateTitle: PropTypes.func.isRequired,

@@ -1,3 +1,5 @@
 import { request } from '../utils/apiService';
 
-export const fetchPurchaseOrders = () => request('get', '/po/purchaseorders/', {}, true);
+export const fetchPurchaseOrders = (accessToken) => request(
+  'get', '/po/purchaseorders/', {}, accessToken
+);
