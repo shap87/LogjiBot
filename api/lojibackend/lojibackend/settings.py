@@ -82,12 +82,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
     "{}:{}".format(APP_URL, APP_PORT)
 )
-
 
 
 ROOT_URLCONF = 'lojibackend.urls'
