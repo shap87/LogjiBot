@@ -17,8 +17,10 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # runtime environment
-API_URL = os.environ.get('API_URL')
-DB_URL = os.environ.get('DB_URL')
+API_URL = os.getenv('API_URL', 'localhost')
+DB_URL = os.getenv('DB_URL', 'postgres://postgres')
+APP_URL = os.getenv('APP_URL', 'localhost')
+APP_PORT = os.getenv('APP_PORT', '8080')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -80,17 +82,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ORIGIN_WHITELIST = (
-#     API_URL,
-#     'localhost:8090',
-#     'localhost:8080',
-#     'localhost:8081',
-#     '127.0.0.1:8090',
-#     '127.0.0.1:8080',
-#     '127.0.0.1:8081',
-# )
+CORS_ORIGIN_WHITELIST = (
+    "{}:{}".format(APP_URL, APP_PORT)
+)
 
 
 

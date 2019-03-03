@@ -1,5 +1,6 @@
-FROM node:latest
+FROM node:carbon
 WORKDIR /opt/app
-ADD . .
+COPY package*json ./
 RUN npm i -q
+COPY . .
 CMD npm start

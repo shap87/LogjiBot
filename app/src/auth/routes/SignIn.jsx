@@ -19,7 +19,7 @@ export class SignIn extends PureComponent {
   onSubmit({ email, password, keepSignedIn }) {
     const { signIn } = this.props;
 
-    signIn({ email, password }, keepSignedIn);
+    signIn({ username: email, password }, keepSignedIn);
   }
 
   render() {
