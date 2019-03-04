@@ -2,31 +2,39 @@ version: "3.1"
 services:
   app:
     build: ./app
-    env_file:
-      - ./config/.app.env
+#
+#    environment:
+#      - REACT_APP_API_URL=api.loji.host:8090/api
+#      - REACT_APP_API_VERSION=1
     volumes:
       - ./app:/opt/app
       - /opt/app/node_modules
     ports:
       - 8080:3000
+    restart: on-failure
     depends_on:
       - api
 
   website:
     build: website
-    env_file:
-      - ./config/.env
+#    environment:
+#      - APP_URL=app.loji.host
+#      - APP_PORT=8080
+#      - WEBSITE_URL=loji.host
     volumes:
       - ./website:/opt/website
+    restart: on-failure
     ports:
       - 8081:8081
 
   api:
     build: ./api
-    env_file:
-      - ./config/.env
+#    environment:
+#      - API_URL=api.loji.host
+#      - DB_URL=postgresql://postgres
     volumes:
       - ./api:/opt/api
+    restart: on-failure
     ports:
       - 8090:8090
     depends_on:

@@ -16,9 +16,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # runtime environment
-APP_URL = os.environ.get('APP_URL')
-APP_PORT = os.environ.get('APP_PORT')
-WEBSITE_URL = os.environ.get('WEBSITE_URL')
+APP_URL = os.getenv('APP_URL', 'localhost')
+APP_PORT = os.getenv('APP_PORT', '8080')
+WEBSITE_URL = os.getenv('WEBSITE_URL', 'localhost')
 
 
 # Quick-start development settings - unsuitable for production

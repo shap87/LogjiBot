@@ -11,21 +11,20 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
+from intuitlib.enums import Scopes
 # import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # runtime environment
-APP_URL = os.environ.get('APP_URL')
-APP_PORT = os.environ.get('APP_PORT')
-API_URL = os.environ.get('API_URL')
-API_PORT = os.environ.get('API_PORT')
-DB_URL = os.environ.get('DB_URL')
+API_URL = os.getenv('API_URL', 'localhost')
+API_PORT = os.getenv('API_PORT', '8090')
+DB_URL = os.getenv('DB_URL', 'postgres://postgres')
+APP_URL = os.getenv('APP_URL', 'localhost')
+APP_PORT = os.getenv('APP_PORT', '8080')
 
-if(not API_URL):
-    API_URL = 'localhost'
-    API_PORT = '8000'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -38,9 +37,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     API_URL,
-    '127.0.0.1',
-    'localhost',
-    '192.168.99.100'
 ]
 
 
@@ -91,10 +87,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 # CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
-    str(APP_URL) + ':' + str(APP_PORT)
+    "{}:{}".format(APP_URL, APP_PORT)
 )
 
 
@@ -178,8 +175,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)
 }
 
-#Simple Jwt settings
-from datetime import timedelta
+# Simple Jwt settings
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
@@ -204,10 +200,9 @@ SIMPLE_JWT = {
 }
 
 
-#Intuit Oauth2
-from intuitlib.enums import Scopes
+# Intuit Oauth2
 INTUIT_CLIENT_ID = "Q0kbUO2D1EqcPLdxXJN40jXzh95YvUysVyqbiO6TKOn7uUnKdt"
-INTUIT_CLIENT_SECRET =  "IC0S4vmg7C6Y5wiQngelxEqlha8PCcXNM0OZo9V7"
-INTUIT_REDIRECT_URI = "http://"+str(API_URL)+":" + str(API_PORT) + "/api/v1/qb/redirect/"
+INTUIT_CLIENT_SECRET = "IC0S4vmg7C6Y5wiQngelxEqlha8PCcXNM0OZo9V7"
+INTUIT_REDIRECT_URI = "http://{}:{}/api/v1/qb/redirect/".format(API_URL, API_PORT)
 INTUIT_ENVIROMENT = "sandbox"
-INTUIT_SCOPES = [Scopes.OPENID,Scopes.ACCOUNTING,Scopes.EMAIL,Scopes.PROFILE]
+INTUIT_SCOPES = [Scopes.OPENID, Scopes.ACCOUNTING, Scopes.EMAIL, Scopes.PROFILE]
