@@ -1,15 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Card, Row, Col, CardBody, CardHeader,
 } from 'reactstrap';
+import { pick } from 'lodash';
 
 import { SignInForm } from '../components';
 import { authenticateCustomer } from '../../store/auth/authActions';
 
-export class SignIn extends PureComponent {
+export class SignIn extends Component {
   constructor(props) {
     super(props);
 
@@ -55,7 +56,13 @@ export class SignIn extends PureComponent {
   }
 }
 
-const mapStateTpProps = ({ auth }) => ({ ...auth });
+const mapStateTpProps = ({ auth }) => {
+  const componentProps = pick(auth, 'isCustomerAuthenticated');
+
+  return {
+    ...componentProps,
+  };
+};
 const mapActionsToProps = (dispatch) => ({
   signIn: (credentials, isKeepingSignedIn) => {
     dispatch(authenticateCustomer(credentials, isKeepingSignedIn));
