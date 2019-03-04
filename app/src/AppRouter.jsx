@@ -15,6 +15,7 @@ import { PrivateRoute, NotMatch } from './auth/components';
 import { Header, Sidebar } from './layout/components';
 import { validateToken, setInitialTokenValidation } from './store/auth/authActions';
 import { getAccessTokenFromStorage, getRefreshTokenFromStorage } from './auth/authService';
+import { Spinner } from './utils/components/Spinner';
 
 export class AppRouter extends PureComponent {
   componentDidMount() {
@@ -43,8 +44,7 @@ export class AppRouter extends PureComponent {
     } = this.props;
 
     if (!hasInitialTokenValidationBeenDone) {
-      // TODO: adding loader component
-      return null;
+      return <Spinner />;
     }
 
     const isAuthenticated = hasInitialTokenValidationBeenDone && isTokenValid;

@@ -13,7 +13,7 @@ export class Dashboard extends Component {
 
   render() {
     return (
-      <div>main</div>
+      <div>Main</div>
     );
   }
 }

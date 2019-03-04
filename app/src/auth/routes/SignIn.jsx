@@ -57,7 +57,7 @@ export class SignIn extends Component {
 }
 
 const mapStateTpProps = ({ auth }) => {
-  const componentProps = pick(auth, 'isCustomerAuthenticated');
+  const componentProps = pick(auth, [ 'isCustomerAuthenticated', 'isCustomerAuthenticating' ]);
 
   return {
     ...componentProps,
