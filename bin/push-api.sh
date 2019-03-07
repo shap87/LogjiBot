@@ -11,7 +11,7 @@ key=$PWD/bin/keys/loji-api-staging.pem
 ecr=239905773778.dkr.ecr.us-east-2.amazonaws.com
 ec2=ec2-3-18-103-182.us-east-2.compute.amazonaws.com
 tag=loji-api:$version
-app_name=logi-api
+app_name=loji-api
 
 echo "pushing api $version to EC2 instance..."
 echo "connecting to $ec2..."
