@@ -20,6 +20,7 @@ django-rest-swagger = "*"
 flex = "*"
 swagger-spec-validator = "*"
 django-cors-headers = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.*"
