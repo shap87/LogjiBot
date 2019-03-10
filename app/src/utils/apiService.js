@@ -6,7 +6,7 @@ export const request = (method, url, params = {}, isAuthenticated) => {
   const body = method === 'get' ? 'params' : 'data';
   const config = {
     method,
-    url: `//${apiUrl}/v${apiVersion}${url}`,
+    url: `${apiUrl}/v${apiVersion}${url}`,
     [body]: params,
   };
 
