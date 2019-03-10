@@ -45,7 +45,7 @@ export const createCustomer = ({ email, username, password }) => request(
 );
 
 export const synchronizeWithQB = () => request(
-  'post', '/qb/sync/', {}, true
+  'post', '/qb/sync/', {}, getAccessTokenFromStorage()
 );
 
 export const refreshToken = (refresh) => request(

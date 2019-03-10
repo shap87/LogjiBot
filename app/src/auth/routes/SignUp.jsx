@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -9,9 +9,14 @@ import {
 import { SignUpForm } from '../components';
 import { createCustomer } from '../../store/auth/authActions';
 
-export class SignUp extends PureComponent {
+export class SignUp extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isAuthenticating: false,
+      redirect: false,
+    };
 
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -21,13 +26,23 @@ export class SignUp extends PureComponent {
   }) {
     const { signUp } = this.props;
 
-    signUp({ email, password, username }, keepSignedIn);
+    this.setState({ isAuthenticating: true }, () => {
+      signUp({ email, password, username }, keepSignedIn)
+        .then(() => {
+          this.setState({ isAuthenticating: false, redirect: true });
+        })
+        .catch((error) => {
+          console.log(error); // @TODO: display correct error message
+          this.setState({ isAuthenticating: false });
+        });
+    });
   }
 
   render() {
-    const { isCustomerAuthenticated, isCustomerAuthenticating, from } = this.props;
+    const { isAuthenticating, redirect } = this.state;
+    const { from } = this.props;
 
-    if (isCustomerAuthenticated) {
+    if (redirect) {
       return <Redirect to={from} />;
     }
 
@@ -44,7 +59,10 @@ export class SignUp extends PureComponent {
               <Card className="border-0 shadow-z4">
                 <CardHeader className="bg-primary p-1" />
                 <CardBody>
-                  <SignUpForm onSubmit={this.onSubmit} isCustomerAuthenticating={isCustomerAuthenticating} />
+                  <SignUpForm
+                    onSubmit={this.onSubmit}
+                    isCustomerAuthenticating={isAuthenticating}
+                  />
                 </CardBody>
               </Card>
             </Col>
@@ -55,18 +73,13 @@ export class SignUp extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ auth }) => ({ ...auth });
 const mapActionsToProps = (dispatch) => ({
-  signUp: (credentials, isKeepingSignedIn) => {
-    dispatch(createCustomer(credentials, isKeepingSignedIn));
-  },
+  signUp: (credentials, isKeepingSignedIn) => dispatch(createCustomer(credentials, isKeepingSignedIn)),
 });
 
-export default connect(mapStateToProps, mapActionsToProps)(SignUp);
+export default connect(null, mapActionsToProps)(SignUp);
 
 SignUp.propTypes = {
-  isCustomerAuthenticated: PropTypes.bool.isRequired,
-  isCustomerAuthenticating: PropTypes.bool.isRequired,
   signUp: PropTypes.func.isRequired,
   from: PropTypes.string,
 };

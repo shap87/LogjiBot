@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   Card, Row, Col, CardBody, CardHeader,
 } from 'reactstrap';
-import { pick } from 'lodash';
 
 import { SignInForm } from '../components';
 import { authenticateCustomer } from '../../store/auth/authActions';
@@ -14,19 +13,33 @@ export class SignIn extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isAuthenticating: false,
+      redirect: false,
+    };
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit({ username, password, keepSignedIn }) {
     const { signIn } = this.props;
 
-    signIn({ username, password }, keepSignedIn);
+    this.setState({ isAuthenticating: true }, () => {
+      signIn({ username, password }, keepSignedIn)
+        .then(() => {
+          this.setState({ isAuthenticating: false, redirect: true });
+        })
+        .catch((error) => {
+          console.log(error); // @TODO display error message
+          this.setState({ isAuthenticating: false });
+        });
+    });
   }
 
   render() {
-    const { isCustomerAuthenticated, isCustomerAuthenticating, from } = this.props;
+    const { isAuthenticating, redirect } = this.state;
+    const { from } = this.props;
 
-    if (isCustomerAuthenticated) {
+    if (redirect) {
       return (
         <Redirect to={from} />
       );
@@ -45,7 +58,10 @@ export class SignIn extends Component {
               <Card className="border-0 shadow-z4">
                 <CardHeader className="bg-primary p-1" />
                 <CardBody>
-                  <SignInForm onSubmit={this.onSubmit} isCustomerAuthenticating={isCustomerAuthenticating} />
+                  <SignInForm
+                    onSubmit={this.onSubmit}
+                    isCustomerAuthenticating={isAuthenticating}
+                  />
                 </CardBody>
               </Card>
             </Col>
@@ -56,24 +72,13 @@ export class SignIn extends Component {
   }
 }
 
-const mapStateTpProps = ({ auth }) => {
-  const componentProps = pick(auth, [ 'isCustomerAuthenticated', 'isCustomerAuthenticating' ]);
-
-  return {
-    ...componentProps,
-  };
-};
 const mapActionsToProps = (dispatch) => ({
-  signIn: (credentials, isKeepingSignedIn) => {
-    dispatch(authenticateCustomer(credentials, isKeepingSignedIn));
-  },
+  signIn: (credentials, isKeepingSignedIn) => dispatch(authenticateCustomer(credentials, isKeepingSignedIn)),
 });
 
-export default connect(mapStateTpProps, mapActionsToProps)(SignIn);
+export default connect(null, mapActionsToProps)(SignIn);
 
 SignIn.propTypes = {
-  isCustomerAuthenticating: PropTypes.bool.isRequired,
-  isCustomerAuthenticated: PropTypes.bool.isRequired,
   signIn: PropTypes.func.isRequired,
   from: PropTypes.string,
 };
