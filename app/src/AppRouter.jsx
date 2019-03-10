@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router, Route, Switch, Redirect,
@@ -13,41 +13,39 @@ import {
 } from './auth/routes';
 import { PrivateRoute, NotMatch } from './auth/components';
 import { Header, Sidebar } from './layout/components';
-import { validateToken, setInitialTokenValidation } from './store/auth/authActions';
+import { validateToken } from './store/auth/authActions';
 import { getAccessTokenFromStorage, getRefreshTokenFromStorage } from './auth/authService';
 import { Spinner } from './utils/components/Spinner';
 
-export class AppRouter extends PureComponent {
+export class AppRouter extends Component {
+  state = {
+    hasInitialTokenValidationBeenDone: false,
+  };
+
   componentDidMount() {
-    const {
-      validateTokenOnMount, hasInitialTokenValidationBeenDone, isTokenValid, setInitialTokenValidationOnMount,
-    } = this.props;
+    const { hasInitialTokenValidationBeenDone } = this.state;
+    const { validateTokenOnMount } = this.props;
 
-    if (isTokenValid || hasInitialTokenValidationBeenDone) {
-      return;
-    }
+    if (!hasInitialTokenValidationBeenDone) {
+      const accessToken = getAccessTokenFromStorage();
+      const refreshToken = getRefreshTokenFromStorage();
 
-    const accessToken = getAccessTokenFromStorage();
-    const refreshToken = getRefreshTokenFromStorage();
-
-    if (accessToken && refreshToken) {
-      validateTokenOnMount(accessToken, refreshToken);
-    } else {
-      setInitialTokenValidationOnMount();
+      validateTokenOnMount(accessToken, refreshToken)
+        .finally(() => {
+          this.setState({ hasInitialTokenValidationBeenDone: true });
+        });
     }
   }
 
   render() {
-    const {
-      hasInitialTokenValidationBeenDone, isTokenValid, isSidebarCollapsed,
-      validateTokenOnMount,
-    } = this.props;
+    const { hasInitialTokenValidationBeenDone } = this.state;
+    const { isSidebarCollapsed, validateTokenOnMount, accessToken } = this.props;
 
     if (!hasInitialTokenValidationBeenDone) {
       return <Spinner />;
     }
 
-    const isAuthenticated = hasInitialTokenValidationBeenDone && isTokenValid;
+    const isAuthenticated = !!(hasInitialTokenValidationBeenDone && accessToken);
 
     return (
       <Router>
@@ -101,12 +99,11 @@ export class AppRouter extends PureComponent {
 }
 
 const mapStateToProps = ({ auth, layout }) => ({
-  ...auth,
-  ...layout,
+  isSidebarCollapsed: layout.isSidebarCollapsed,
+  accessToken: auth.accessToken,
 });
 const mapActionsToProps = (dispatch) => ({
   validateTokenOnMount: (accessToken, refreshToken) => dispatch(validateToken(accessToken, refreshToken)),
-  setInitialTokenValidationOnMount: () => dispatch(setInitialTokenValidation()),
 });
 
 export default connect(
@@ -115,9 +112,11 @@ export default connect(
 )(AppRouter);
 
 AppRouter.propTypes = {
-  setInitialTokenValidationOnMount: PropTypes.func.isRequired,
   validateTokenOnMount: PropTypes.func.isRequired,
-  isTokenValid: PropTypes.bool.isRequired,
-  hasInitialTokenValidationBeenDone: PropTypes.bool.isRequired,
   isSidebarCollapsed: PropTypes.bool.isRequired,
+  accessToken: PropTypes.string,
+};
+
+AppRouter.defaultProps = {
+  accessToken: '',
 };
