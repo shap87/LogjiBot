@@ -18,9 +18,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # runtime environment
 API_URL = os.getenv('API_URL', 'localhost')
-DB_URL = os.getenv('DB_URL', 'postgres://postgres')
 APP_URL = os.getenv('APP_URL', 'localhost')
 APP_PORT = os.getenv('APP_PORT', '8080')
+DB_NAME = os.getenv('POSTGRES_DB', 'loji_local')
+DB_USER = os.getenv('POSTGRES_USER', 'loji')
+DB_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'password')
+DB_HOST = os.getenv('POSTGRES_URI', 'localhost')
+DB_PORT = os.getenv('POSTGRES_PORT', '5432')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -32,7 +36,7 @@ SECRET_KEY = '97&pg@a4paw&x(zl#ydgxpj0!*%bovllhhtk%2p@y&y$j3pok4'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    API_URL
+    API_URL,
 ]
 
 
@@ -83,13 +87,7 @@ MIDDLEWARE = [
 ]
 
 
-# CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ORIGIN_WHITELIST = (
-    "{}:{}".format(APP_URL, APP_PORT)
-)
-
-
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'lojibackend.urls'
 
 TEMPLATES = [
@@ -114,15 +112,14 @@ WSGI_APPLICATION = 'lojibackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASE_URL = DB_URL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbg8fbb23bklrm',
-        'USER': 'obonmfumhmxpyg',
-        'PASSWORD': 'ec21cd70f01a7cfaa41635a1be24e8724bb6f744efdf682e96a7d671d247eb25',
-        'HOST': 'ec2-54-204-36-249.compute-1.amazonaws.com',
-        'PORT': '5432'
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
 

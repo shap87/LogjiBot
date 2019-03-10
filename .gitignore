@@ -1,17 +1,19 @@
 # editors
-.idea/
-.vscode/
+.idea
+.vscode
 
 # environment
-venv/
+venv
 *.env
 
 # temp files
-.sass-cache/
+migrations
+data
+.sass-cache
 *.pyc
 
 # dependencies
-node_modules/
+node_modules
 /.pnp
 .pnp.js
 
@@ -19,7 +21,7 @@ node_modules/
 coverage/
 
 # production
-build/
+build
 
 # misc
 .DS_Store
