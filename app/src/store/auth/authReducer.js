@@ -43,6 +43,8 @@ export default createReducer(initialState, {
   [actionTypes.REFRESHING_FAILED]: (state) => ({
     ...state,
     refreshingTokenPromise: null,
+    accessToken: null,
+    refreshToken: null,
   }),
 
   [actionTypes.SIGN_OUT]: () => initialState,
