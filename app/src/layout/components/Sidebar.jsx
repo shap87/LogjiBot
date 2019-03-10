@@ -10,7 +10,7 @@ import { FaIcon, SimpleTooltip } from '../../utils';
 import UserMenuContainer from '../../user/components/UserMenu';
 
 export default function Sidebar({ isSidebarCollapsed }) {
-  const sidebarClasses = classNames(
+  const sidebarClassNames = classNames(
     'st-sidebar',
     'bg-light',
     'd-flex',
@@ -21,7 +21,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
   );
 
   return (
-    <aside className={sidebarClasses}>
+    <div className={sidebarClassNames}>
       <div className="d-flex flex-column align-items-center justify-content-between st-sidebar--main bg-primary py-2">
         <Link to="/">
           <h2 id="loji" className="text-white">
@@ -47,7 +47,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
           <UserMenuContainer />
         </div>
       </div>
-      <div className="d-flex flex-column flex-grow-1 flex-shrink-1 px-3 pt-5">
+      <div className="d-flex flex-column flex-grow-1 flex-shrink-1 px-3 pt-5 st-sidebar--helper">
         <Nav className="flex-column pt-5">
           <NavItem className="d-flex">
             <NavLink
@@ -93,7 +93,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
           </NavItem>
         </Nav>
       </div>
-    </aside>
+    </div>
   );
 }
 

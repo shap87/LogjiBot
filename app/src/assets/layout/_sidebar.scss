@@ -1,15 +1,27 @@
 .st-sidebar {
   width: $sidebar-width;
-  overflow-x: hidden;
-  transition: .4s ease;
+  transition: 0.4s ease;
 
   &.collapsed {
     width: $sidebar-width-collapsed;
+
+    .st-sidebar--helper {
+      transform: translateX(-#{$sidebar-width});
+    }
   }
 
   &--main {
+    position: relative;
     width: $sidebar-width-collapsed;
     min-width: $sidebar-width-collapsed;
+    z-index: 2;
+  }
+
+  &--helper {
+    position: relative;
+    transition: 0.4s ease;
+    overflow: hidden;
+    z-index: 1;
   }
 }
 

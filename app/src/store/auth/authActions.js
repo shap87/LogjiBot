@@ -20,7 +20,10 @@ export const handleSuccessfulRefreshing = createAction(actionTypes.REFRESHING_SU
 export const handleFailedRefreshing = createAction(actionTypes.REFRESHING_FAILED, 'error');
 
 export const validateToken = (accessToken, refreshToken) => (dispatch) => authService.validateToken(accessToken)
-  .then(() => dispatch(handleValidToken(accessToken, refreshToken)));
+  .then(() => dispatch(handleValidToken(accessToken, refreshToken)))
+  .catch(() => {
+    // it prevents uncaught promise rejection error
+  });
 
 export const authenticateCustomer = (credentials, isKeepingSignedIn = false) => (dispatch) => authService
   .authenticateCustomer(credentials)
