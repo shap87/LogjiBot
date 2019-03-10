@@ -10,7 +10,16 @@ export default function ResetPassword() {
     <section className="d-flex flex-grow-1 flex-column align-items-center justify-content-center">
       <div className="container">
         <Row noGutters>
-          <Col md={{ size: 4, offset: 4 }}>
+          <Col
+            md={{
+              size: 8,
+              offset: 2,
+            }}
+            lg={{
+              size: 6,
+              offset: 3,
+            }}
+          >
             <h1 className="text-center mb-3">Loji</h1>
             <Card className="border-0 shadow-z4">
               <CardHeader className="bg-primary p-1" />

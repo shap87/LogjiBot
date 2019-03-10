@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import {
   Form, FormGroup, Label, FormText, Button,
 } from 'reactstrap';
@@ -43,7 +44,8 @@ export default function ForgotPasswordForm({ onSubmit }) {
               We will send you a link to reset your password
             </FormText>
           </FormGroup>
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-between">
+            <Link to="/signin" className="btn btn-outline-primary">Back to login</Link>
             <Button type="submit" color="primary" disabled={!isValid}>Reset Password</Button>
           </div>
         </Form>
