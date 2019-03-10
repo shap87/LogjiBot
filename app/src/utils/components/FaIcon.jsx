@@ -18,7 +18,7 @@ export default function FaIcon({ iconName, className, type }) {
 FaIcon.propTypes = {
   iconName: PropTypes.string.isRequired,
   className: PropTypes.string,
-  type: PropTypes.oneOf([ 'light', 'solid', 'regular' ]),
+  type: PropTypes.oneOf([ 'light', 'solid', 'regular', 'default' ]),
 };
 
 FaIcon.defaultProps = {

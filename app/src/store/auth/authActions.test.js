@@ -35,4 +35,6 @@ describe('Auth Actions', () => {
       });
     });
   });
+
+  describe('validateToken', () => {})
 });
