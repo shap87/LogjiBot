@@ -6,4 +6,5 @@ RUN pip install pipenv
 COPY Pipfile* ./
 RUN pipenv install --system --deploy
 COPY . .
-CMD python ./lojibackend/manage.py runserver 0.0.0.0:8090
+EXPOSE 8090
+CMD ./bin/run-gunicorn.sh

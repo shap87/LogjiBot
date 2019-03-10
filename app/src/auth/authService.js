@@ -32,6 +32,7 @@ export const setRefreshTokenInStorage = (token) => {
   localStorage.setItem('refresh', token);
 };
 
+
 export const validateToken = () => request(
   'get', '/user/whoami/', {}, true
 );
