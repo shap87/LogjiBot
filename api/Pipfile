@@ -21,7 +21,7 @@ flex = "*"
 swagger-spec-validator = "*"
 django-cors-headers = "*"
 intuit-oauth = "*"
-
+gunicorn = "*"
 
 [requires]
 python_version = "3.*"

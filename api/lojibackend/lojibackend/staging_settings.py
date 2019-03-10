@@ -11,24 +11,10 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from datetime import timedelta
-from intuitlib.enums import Scopes
 # import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# runtime environment
-API_URL = os.getenv('API_URL', 'localhost')
-API_PORT = os.getenv('API_PORT', '8090')
-APP_URL = os.getenv('APP_URL', 'localhost')
-APP_PORT = os.getenv('APP_PORT', '8080')
-DB_NAME = os.getenv('POSTGRES_DB', 'loji_local')
-DB_USER = os.getenv('POSTGRES_USER', 'loji')
-DB_PASSWORD = os.getenv('POSTGRES_PASSWORD', 'password')
-DB_HOST = os.getenv('POSTGRES_URI', 'localhost')
-DB_PORT = os.getenv('POSTGRES_PORT', '5432')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -40,7 +26,7 @@ SECRET_KEY = '97&pg@a4paw&x(zl#ydgxpj0!*%bovllhhtk%2p@y&y$j3pok4'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    API_URL,
+    'ec2-3-18-103-182.us-east-2.compute.amazonaws.com'
 ]
 
 
@@ -65,7 +51,6 @@ INSTALLED_APPS = [
     'api',
     'users',
     'purchase_orders',
-    'quickbooks_sync'
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -92,7 +77,13 @@ MIDDLEWARE = [
 ]
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+    "dypqjnd361hg9.cloudfront.net"
+)
+
+
 ROOT_URLCONF = 'lojibackend.urls'
 
 TEMPLATES = [
@@ -120,11 +111,11 @@ WSGI_APPLICATION = 'lojibackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
+        'NAME': 'loji_dev',
+        'USER': 'loji',
+        'PASSWORD': 'WoXLshupPs~-v`H7}7',
+        'HOST': 'lojidb.cdudxlhbkjbx.us-east-2.rds.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
@@ -171,35 +162,3 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated', ),
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)
 }
-
-# Simple Jwt settings
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
-
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
-    'VERIFYING_KEY': None,
-
-    'AUTH_HEADER_TYPES': ('Bearer',),
-    'USER_ID_FIELD': 'id',
-    'USER_ID_CLAIM': 'user_id',
-
-    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-    'TOKEN_TYPE_CLAIM': 'token_type',
-
-    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
-}
-
-
-# Intuit Oauth2
-INTUIT_CLIENT_ID = "Q0kbUO2D1EqcPLdxXJN40jXzh95YvUysVyqbiO6TKOn7uUnKdt"
-INTUIT_CLIENT_SECRET = "IC0S4vmg7C6Y5wiQngelxEqlha8PCcXNM0OZo9V7"
-INTUIT_REDIRECT_URI = "http://{}:{}/api/v1/qb/redirect/".format(API_URL, API_PORT)
-INTUIT_ENVIROMENT = "sandbox"
-INTUIT_SCOPES = [Scopes.OPENID, Scopes.ACCOUNTING, Scopes.EMAIL, Scopes.PROFILE]

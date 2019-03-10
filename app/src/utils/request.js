@@ -5,7 +5,7 @@ export default function request(method, url, params = {}, accessToken) {
   const body = method === 'get' ? 'params' : 'data';
   const config = {
     method,
-    url: `//${apiUrl}/v${apiVersion}${url}`,
+    url: `${apiUrl}/v${apiVersion}${url}`,
     [body]: params,
   };
 
