@@ -25,7 +25,7 @@ export default class SignInWithIntuitButton extends Component {
     const imgSrc = isImgHovered ? signInWithIntuitHovered : signInWithIntuit;
 
     return (
-      <a href={`//${apiUrl}/v${apiVersion}/qb/auth/`}>
+      <a href={`${apiUrl}/v${apiVersion}/qb/auth/`}>
         <img
           src={imgSrc}
           onMouseEnter={this.toggleImgSrc}
