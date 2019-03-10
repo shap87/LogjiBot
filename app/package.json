@@ -80,7 +80,8 @@
     "setupTestFrameworkScriptFile": "jest-enzyme",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
+      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}",
+      "<rootDir>/snapshots/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "enzyme",
     "testURL": "http://localhost",
