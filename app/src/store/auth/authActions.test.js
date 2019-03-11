@@ -54,7 +54,7 @@ describe('Auth Actions', () => {
       authService.validateToken.mockResolvedValue({});
       store.dispatch(validateToken('access', 'refresh'))
         .then(() => {
-          expect(authService.validateToken).toHaveBeenCalledWith(0);
+          expect(authService.validateToken).toHaveBeenCalledWith('access');
           expect(store.getActions()).toEqual(expectedActions);
           done();
         });
@@ -64,6 +64,10 @@ describe('Auth Actions', () => {
   describe('authenticateCustomer', () => {
     it('should set created tokens and dispatch successful authentication event', (done) => {
       const store = mockStore({ accessToken: null, refreshToken: null });
+      const credentials = {
+        username: 'test',
+        password: 'test',
+      };
       const data = {
         access: 'newAccess',
         refresh: 'newRefresh',
@@ -75,11 +79,57 @@ describe('Auth Actions', () => {
         isKeepingSignedIn: true,
       }];
       authService.authenticateCustomer.mockResolvedValue({ data });
-      store.dispatch(authenticateCustomer({}, true))
+      store.dispatch(authenticateCustomer(credentials, true))
         .then(() => {
+          expect(authService.authenticateCustomer).toHaveBeenCalledWith(credentials);
+          expect(authService.setAccessTokenInStorage).toHaveBeenCalledWith(data.access);
+          expect(authService.setRefreshTokenInStorage).toHaveBeenCalledWith(data.refresh);
           expect(store.getActions()).toEqual(expectedActions);
           done();
         });
+    });
+  });
+
+  describe('createCustomer', () => {
+    it('should set tokens and dispatch successful registration', (done) => {
+      const store = mockStore({ accessToken: null, refreshToken: null });
+      const data = {
+        access: 'access',
+        refresh: 'refresh',
+      };
+      const credentials = {
+        username: 'username',
+        email: 'test@test.test',
+        password: 'test',
+      };
+      const expectedActions = [{
+        type: actionTypes.AUTHENTICATION_SUCCEED,
+        access: data.access,
+        refresh: data.refresh,
+        isKeepingSignedIn: false,
+      }];
+      authService.createCustomer.mockResolvedValue({ data });
+      store.dispatch(createCustomer(credentials))
+        .then(() => {
+          expect(authService.createCustomer).toHaveBeenCalledWith(credentials);
+          expect(authService.setAccessTokenInStorage).toHaveBeenCalledWith(data.access);
+          expect(authService.setRefreshTokenInStorage).toHaveBeenCalledWith(data.refresh);
+          expect(store.getActions()).toEqual(expectedActions);
+          done();
+        });
+    });
+  });
+
+  describe('signOut', () => {
+    it('should drop tokens and dispatch sign out event', () => {
+      const store = mockStore({ accessToken: 'access', refreshToken: 'regresh' });
+      const expectedActions = [{
+        type: actionTypes.SIGN_OUT,
+      }];
+      store.dispatch(signOut());
+      expect(authService.setAccessTokenInStorage).toHaveBeenCalledWith(null);
+      expect(authService.setRefreshTokenInStorage).toHaveBeenCalledWith(null);
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });

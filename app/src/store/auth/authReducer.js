@@ -22,13 +22,6 @@ export default createReducer(initialState, {
     isKeepingSignedIn: action.isKeepingSignedIn,
   }),
 
-  [actionTypes.CREATING_SUCCEED]: (state, action) => ({
-    ...state,
-    accessToken: action.access,
-    refreshToken: action.refresh,
-    isKeepingSignedIn: action.isKeepingSignedIn,
-  }),
-
   [actionTypes.REFRESH_TOKEN]: (state, action) => ({
     ...state,
     refreshingTokenPromise: action.promise,

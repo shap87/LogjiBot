@@ -24,18 +24,6 @@ describe('Auth Reducer', () => {
     });
   });
 
-  it('should update tokens after user creation', () => {
-    const action = {
-      type: actionTypes.CREATING_SUCCEED, access: 'access', refresh: 'refresh', isKeepingSignedIn: false,
-    };
-    expect(authReducer(undefined, action)).toEqual({
-      accessToken: 'access',
-      refreshToken: 'refresh',
-      refreshingTokenPromise: null,
-      isKeepingSignedIn: false,
-    });
-  });
-
   it('should set refresh token promise during its validation', () => {
     const action = { type: actionTypes.REFRESH_TOKEN, promise: {} };
     expect(authReducer(undefined, action)).toEqual({
