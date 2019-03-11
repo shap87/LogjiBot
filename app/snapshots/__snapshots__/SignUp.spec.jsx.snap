@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SignUp UI should redirect once user is signed up 1`] = `
+<Redirect
+  push={false}
+  to="/"
+/>
+`;
+
 exports[`SignUp UI should render authentication form 1`] = `
 <section
   className="d-flex flex-grow-1 flex-column align-items-center justify-content-center"

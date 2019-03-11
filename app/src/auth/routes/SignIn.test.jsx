@@ -21,19 +21,4 @@ describe('SignIn Component', () => {
     wrapper.find('SignInForm').simulate('submit', data);
     expect(wrapper).toHaveState({ isAuthenticating: true });
   });
-
-  it('should redirect after authentication', (done) => {
-    const data = {
-      username: 'username',
-      password: 'password',
-      keepSignedIn: false,
-    };
-    signInMock.mockResolvedValue();
-    wrapper.find('SignInForm').simulate('submit', data);
-    setTimeout(() => {
-      expect(wrapper).toHaveState({ isAuthenticating: false })
-      expect(wrapper).toContainExactlyOneMatchingElement('Redirect');
-      done();
-    }, 0);
-  });
 });

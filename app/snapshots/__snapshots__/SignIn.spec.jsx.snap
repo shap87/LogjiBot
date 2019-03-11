@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SignIn UI should redirect if user has been authenticated 1`] = `
+<Redirect
+  push={false}
+  to="/"
+/>
+`;
+
 exports[`SignIn UI should render authentication form 1`] = `
 <section
   className="d-flex flex-grow-1 flex-column align-items-center justify-content-center"
