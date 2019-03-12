@@ -195,5 +195,6 @@ SIMPLE_JWT = {
 INTUIT_CLIENT_ID = "Q0kbUO2D1EqcPLdxXJN40jXzh95YvUysVyqbiO6TKOn7uUnKdt"
 INTUIT_CLIENT_SECRET = "IC0S4vmg7C6Y5wiQngelxEqlha8PCcXNM0OZo9V7"
 INTUIT_REDIRECT_URI = "http://ec2-3-18-103-182.us-east-2.compute.amazonaws.com/api/v1/qb/redirect/"
+INTUIT_APP_REDIRECT_URI = "http://dypqjnd361hg9.cloudfront.net/oauth"
 INTUIT_ENVIROMENT = "sandbox"
 INTUIT_SCOPES = [Scopes.OPENID, Scopes.ACCOUNTING, Scopes.EMAIL, Scopes.PROFILE]

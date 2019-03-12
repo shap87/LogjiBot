@@ -75,9 +75,11 @@ def auth_redirect(request):
 
     if(response.status_code == 200):
         #send JWT token to the frontend
-        return redirect("http://" + str(settings.APP_URL) + ':' + str(settings.APP_PORT)\
-                    + '/oauth?access=' + text_type(refresh.access_token)\
-                    + '&refresh=' + text_type(refresh))
+        return redirect("{}?access={}&refresh={}".format(
+            settings.INTUIT_APP_REDIRECT_URI,
+            text_type(refresh.access_token),
+            text_type(refresh))
+        )
     return response
 
 
