@@ -55,6 +55,8 @@ describe('Auth Actions', () => {
       store.dispatch(validateToken('access', 'refresh'))
         .then(() => {
           expect(authService.validateToken).toHaveBeenCalledWith('access');
+          expect(authService.setAccessTokenInStorage).toHaveBeenCalledWith('access');
+          expect(authService.setRefreshTokenInStorage).toHaveBeenCalledWith('refresh');
           expect(store.getActions()).toEqual(expectedActions);
           done();
         });

@@ -16,7 +16,12 @@ export const handleFailedRefreshing = createAction(actionTypes.REFRESHING_FAILED
 
 export const validateToken = (accessToken, refreshToken) => (dispatch) => authService
   .validateToken(accessToken)
-  .then(() => dispatch(handleValidToken(accessToken, refreshToken)))
+  .then(() => {
+    authService.setAccessTokenInStorage(accessToken);
+    authService.setRefreshTokenInStorage(refreshToken);
+
+    return dispatch(handleValidToken(accessToken, refreshToken));
+  })
   .catch(() => {
     // it prevents uncaught promise rejection error
   });
