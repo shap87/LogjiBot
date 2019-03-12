@@ -4,15 +4,10 @@ import { Progress } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 
 export default class OAuth extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hasValidationBeenFailed: false,
-    };
-
-    this.handleTokenValidation = this.handleTokenValidation.bind(this);
-  }
+  state = {
+    hasValidationBeenFailed: false,
+    redirect: false,
+  };
 
   componentDidMount() {
     const { validateToken, location } = this.props;
@@ -22,24 +17,22 @@ export default class OAuth extends Component {
     const refreshToken = params.get('refresh');
 
     validateToken(accessToken, refreshToken)
-      .then(this.handleTokenValidation);
-  }
-
-  handleTokenValidation() {
-    const { isAuthenticated } = this.props;
-
-    this.setState({ hasValidationBeenFailed: !isAuthenticated });
+      .then(() => {
+        this.setState({ redirect: true });
+      })
+      .catch(() => {
+        this.setState({ hasValidationBeenFailed: true });
+      });
   }
 
   render() {
-    const { hasValidationBeenFailed } = this.state;
-    const { isAuthenticated } = this.props;
+    const { hasValidationBeenFailed, redirect } = this.state;
 
     if (hasValidationBeenFailed) {
       return (<Redirect to="/signin" />);
     }
 
-    if (isAuthenticated) {
+    if (redirect) {
       return (<Redirect to="/" />);
     }
 
@@ -55,7 +48,6 @@ export default class OAuth extends Component {
 }
 
 OAuth.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
   validateToken: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
 };

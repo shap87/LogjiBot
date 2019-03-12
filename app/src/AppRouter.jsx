@@ -63,7 +63,6 @@ export class AppRouter extends Component {
                 path="/oauth"
                 render={(props) => (
                   <OAuth
-                    isAuthenticated={isAuthenticated}
                     validateToken={validateTokenOnMount}
                     {...props}
                   />
