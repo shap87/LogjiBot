@@ -17,9 +17,11 @@ export default function PurchaseOrdersTable({ purchaseOrders }) {
       </div>
       <Table>
         <PurchaseOrdersTableHead />
-        {purchaseOrders.map((purchaseOrder) => (
-          <PurchaseOrdersTableRow {...purchaseOrder} />
-        ))}
+        <tbody>
+          {purchaseOrders.map((purchaseOrder, index) => (
+            <PurchaseOrdersTableRow key={index} {...purchaseOrder} />
+          ))}
+        </tbody>
       </Table>
     </Fragment>
   );

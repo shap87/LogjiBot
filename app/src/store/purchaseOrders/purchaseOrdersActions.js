@@ -4,7 +4,11 @@ import * as purchaseOrdersService from '../../purchaseOrders/purchaseOrdersServi
 
 const handleSuccessfulFetching = createAction(actionTypes.FETCHING_SUCCEED, 'purchaseOrders');
 
-export const fetchPurchaseOrders = () => (dispatch) => purchaseOrdersService.fetchPurchaseOrders()
-  .then(({ data }) => {
-    dispatch(handleSuccessfulFetching(data));
-  });
+export const fetchPurchaseOrders = () => (dispatch, getState) => {
+  const { auth } = getState();
+
+  return purchaseOrdersService.fetchPurchaseOrders(auth.accessToken)
+    .then(({ data }) => {
+      dispatch(handleSuccessfulFetching(data));
+    });
+};
