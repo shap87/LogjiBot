@@ -7,7 +7,7 @@ venv
 *.env
 
 # temp files
-migrations
+migrations/
 data
 .sass-cache
 *.pyc
