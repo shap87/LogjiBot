@@ -52,7 +52,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
           <NavItem className="d-flex">
             <NavLink
               to="/dashboard"
-              className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center"
+              className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
             >
               <FaIcon className="mr-4" iconName="dashboard" />
               Dashboard
@@ -61,32 +61,44 @@ export default function Sidebar({ isSidebarCollapsed }) {
           <NavItem className="d-flex">
             <NavLink
               to="/purchase-orders"
-              className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center"
+              className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
             >
               <FaIcon className="mr-4" iconName="archive" />
-              My POs
+              Purchase Orders
             </NavLink>
           </NavItem>
           <NavItem className="d-flex">
-            <NavLink to="/graphs" className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center">
+            <NavLink
+              to="/graphs"
+              className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
+            >
               <FaIcon className="mr-4" iconName="bar-chart" />
               Graphs
             </NavLink>
           </NavItem>
           <NavItem className="d-flex">
-            <NavLink to="/reports" className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center">
+            <NavLink
+              to="/reports"
+              className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
+            >
               <FaIcon className="mr-4" iconName="clipboard" />
               Reports
             </NavLink>
           </NavItem>
           <NavItem className="d-flex">
-            <NavLink to="/quotes" className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center">
+            <NavLink
+              to="/quotes"
+              className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
+            >
               <FaIcon className="mr-4" iconName="usd" />
               FedEx Quote
             </NavLink>
           </NavItem>
           <NavItem className="d-flex">
-            <NavLink to="/files" className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center">
+            <NavLink
+              to="/files"
+              className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
+            >
               <FaIcon className="mr-4" iconName="files-o" />
               Loji Files
             </NavLink>

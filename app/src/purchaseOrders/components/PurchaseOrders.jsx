@@ -11,11 +11,19 @@ import * as purchaseOrdersActions from '../../store/purchaseOrders/purchaseOrder
 import * as layoutActions from '../../store/layout/layoutActions';
 
 export class PurchaseOrders extends Component {
+  state = {
+    arePurchaseOrdersFetched: false,
+  };
+
   componentDidMount() {
-    const { fetchPurchaseOrders, updateTitle, arePurchaseOrdersFetched } = this.props;
+    const { arePurchaseOrdersFetched } = this.state;
+    const { fetchPurchaseOrders, updateTitle } = this.props;
 
     if (!arePurchaseOrdersFetched) {
-      fetchPurchaseOrders();
+      fetchPurchaseOrders()
+        .then(() => {
+          this.setState({ arePurchaseOrdersFetched: true });
+        });
     }
 
     updateTitle('Purchase Orders');
@@ -78,7 +86,6 @@ const mapActionsToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapActionsToProps)(PurchaseOrders);
 
 PurchaseOrders.propTypes = {
-  arePurchaseOrdersFetched: PropTypes.bool.isRequired,
   purchaseOrders: PropTypes.array.isRequired,
   fetchPurchaseOrders: PropTypes.func.isRequired,
   updateTitle: PropTypes.func.isRequired,
