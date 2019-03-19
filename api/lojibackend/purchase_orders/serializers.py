@@ -18,7 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor
-        fields = ['name', 'city', 'state', 'zip', 'country', 'phone', 'contact_name', 'email']
+        fields = ['id', 'name', 'city', 'state', 'zip', 'country', 'phone', 'contact_name', 'email']
 
 
 class PurchaseOrderSerializer(serializers.ModelSerializer):

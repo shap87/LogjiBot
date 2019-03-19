@@ -8,12 +8,17 @@
     .st-sidebar--helper {
       transform: translateX(-#{$sidebar-width});
     }
+
+    .st-navigation--main {
+      transform: translateX(0);
+    }
   }
 
   &--main {
     position: relative;
     width: $sidebar-width-collapsed;
     min-width: $sidebar-width-collapsed;
+    overflow: hidden;
     z-index: 2;
   }
 
@@ -25,9 +30,19 @@
   }
 }
 
+.st-navigation--main {
+  transition: 0.4s ease-in-out;
+  transform: translateX($sidebar-width-collapsed);
+}
+
 .st-nav-link {
   position: relative;
   white-space: nowrap;
+
+  &-text--hidden {
+    min-height: $icon-button-dimensions;
+    min-width: $icon-button-dimensions;
+  }
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);

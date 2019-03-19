@@ -7,11 +7,13 @@ describe('Purchase Orders Reducer', () => {
     const action = {
       type: actionTypes.FETCHING_SUCCEED,
       purchaseOrders: [purchaseOrder],
+      vendors: {},
     };
     expect(purchaseOrdersReducer(undefined, action)).toEqual({
       purchaseOrders: {
         OA: [purchaseOrder],
       },
+      vendors: {},
     });
   });
 });

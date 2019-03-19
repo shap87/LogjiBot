@@ -6,7 +6,7 @@ export default function PurchaseOrdersTableRow({
 }) {
   return (
     <tr>
-      <td>Memo</td>
+      <td />
       <td>{vendor}</td>
       <td>{status}</td>
       <td>{ship_method}</td>

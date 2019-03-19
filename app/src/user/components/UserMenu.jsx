@@ -44,9 +44,8 @@ export class UserMenu extends Component {
       <Fragment>
         <Button
           id="userSettings"
-          className="shadow-none border-0 rounded-circle st-icon-btn"
-          color="primary"
-          tag="div"
+          className="shadow-none border-0 rounded-circle st-icon-btn mb-3 st-user-menu__button"
+          color="light"
           onClick={this.togglePopover}
         >
           <FaIcon iconName="user" />
@@ -59,13 +58,14 @@ export class UserMenu extends Component {
           toggle={this.togglePopover}
           delay={{ show: 120, hide: 250 }}
           placement="right"
+          hideArrow
         >
-          <PopoverBody className="d-flex flex-column">
-            <Link to="/user-settings">
-              <FaIcon iconName="gear" /> User Settings
+          <PopoverBody className="d-flex flex-column p-0">
+            <Link className="py-2 px-3 text-decoration-none st-user-menu__item" to="/user-settings">
+              <FaIcon className="mr-2" iconName="gear" /> User Settings
             </Link>
-            <Link to="/signin" onClick={signOut}>
-              <FaIcon iconName="sign-out" /> Sign Out
+            <Link className="py-2 px-3 text-decoration-none st-user-menu__item" to="/signin" onClick={signOut}>
+              <FaIcon className="mr-2" iconName="sign-out" /> Sign Out
             </Link>
           </PopoverBody>
         </Popover>

@@ -72,7 +72,9 @@ export class PurchaseOrders extends Component {
   }
 }
 
-const mapStateToProps = ({ purchaseOrders }) => ({ ...purchaseOrders });
+const mapStateToProps = ({ purchaseOrders }) => ({
+  purchaseOrders: purchaseOrders.purchaseOrders,
+});
 const mapActionsToProps = (dispatch) => ({
   fetchPurchaseOrders: () => dispatch(purchaseOrdersActions.fetchPurchaseOrders()),
   updateTitle: (title) => dispatch(layoutActions.updateTitle(title)),
