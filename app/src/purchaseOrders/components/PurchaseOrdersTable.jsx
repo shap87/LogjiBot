@@ -9,20 +9,32 @@ import PurchaseOrdersTableHead from './PurchaseOrdersTableHead';
 import PurchaseOrdersTableRow from './PurchaseOrdersTabelRow';
 import { FaIcon } from '../../utils';
 
-export default function PurchaseOrdersTable({ purchaseOrders, activeStatus }) {
+export default function PurchaseOrdersTable({ purchaseOrders, vendors, activeStatus }) {
   let purchaseOrdersTableRows;
 
-  if (isEmpty(purchaseOrders)) {
+  if (isEmpty(purchaseOrders) || isEmpty(vendors)) {
     purchaseOrdersTableRows = [];
   } else if (!activeStatus) {
     purchaseOrdersTableRows = map(values(purchaseOrders),
       (purchaseOrderList) => map(purchaseOrderList,
-        (purchaseOrder, index) => (
-          <PurchaseOrdersTableRow key={index} {...purchaseOrder} />
+        ({ id, vendor, ...purchaseOrder }) => (
+          <PurchaseOrdersTableRow
+            key={id}
+            id={id}
+            vendor={vendor}
+            vendorName={vendors[vendor].name}
+            {...purchaseOrder}
+          />
         )));
   } else {
-    purchaseOrdersTableRows = purchaseOrders[activeStatus].map((purchaseOrder, index) => (
-      <PurchaseOrdersTableRow key={index} {...purchaseOrder} />
+    purchaseOrdersTableRows = purchaseOrders[activeStatus].map(({ id, vendor, ...purchaseOrder }) => (
+      <PurchaseOrdersTableRow
+        key={id}
+        id={id}
+        vendor={vendor}
+        vendorName={vendors[vendor].name}
+        {...purchaseOrder}
+      />
     ));
   }
 
@@ -48,6 +60,7 @@ export default function PurchaseOrdersTable({ purchaseOrders, activeStatus }) {
 }
 
 PurchaseOrdersTable.propTypes = {
+  vendors: PropTypes.object.isRequired,
   purchaseOrders: PropTypes.object.isRequired,
   activeStatus: PropTypes.string,
 };

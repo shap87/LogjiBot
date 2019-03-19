@@ -1,5 +1,5 @@
 import {
-  groupBy,
+  groupBy, keyBy,
 } from 'lodash';
 
 import * as actionTypes from './purchaseOrdersActionTypes';
@@ -11,9 +11,12 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [actionTypes.FETCHING_SUCCEED]: (state, action) => ({
+  [actionTypes.FETCHING_PO_SUCCEED]: (state, action) => ({
     ...state,
     purchaseOrders: groupBy(action.purchaseOrders, 'status'),
-    vendors: action.vendors,
+  }),
+  [actionTypes.FETCHING_VENDORS_SUCCEED]: (state, action) => ({
+    ...state,
+    vendors: keyBy(action.vendors, 'id'),
   }),
 });

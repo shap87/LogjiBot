@@ -55,7 +55,7 @@ export class AppRouter extends Component {
             : null
           }
 
-          <div className="d-flex flex-column flex-grow-1 rounded-left px-4 py-2 bg-white shadow-z3">
+          <div className="d-flex flex-column flex-grow-1 rounded-left px-4 py-2 bg-white shadow-z2">
             { isAuthenticated ? (<Header />) : null }
             <Switch>
               <Route path="/" render={() => <Redirect to="/dashboard" />} exact />

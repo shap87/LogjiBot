@@ -4,7 +4,7 @@ import PurchaseOrdersTableHeadColumn from './PurchaseOrdersTableHeadColumn';
 
 export default function PurchaseOrdersTableHead() {
   const titles = [
-    'Memo', 'Vendor', 'Status',
+    'Vendor', 'Status',
     'Ship Method', 'Ship Date', 'Due Date',
     'Created At', 'Last Modified',
   ];
@@ -12,9 +12,11 @@ export default function PurchaseOrdersTableHead() {
   return (
     <thead>
       <tr>
+        <th>Memo</th>
         {titles.map((title, index) => (
           <PurchaseOrdersTableHeadColumn key={index} title={title} />
         ))}
+        <th />
       </tr>
     </thead>
   );

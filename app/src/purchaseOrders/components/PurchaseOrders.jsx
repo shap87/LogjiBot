@@ -58,7 +58,7 @@ export class PurchaseOrders extends Component {
   }
 
   render() {
-    const { purchaseOrders, location } = this.props;
+    const { purchaseOrders, location, vendors } = this.props;
 
     const params = new URLSearchParams(location.search);
     const activeStatus = params.get('status');
@@ -66,7 +66,7 @@ export class PurchaseOrders extends Component {
     return (
       <Fragment>
         {this.navigation}
-        <PurchaseOrdersTable purchaseOrders={purchaseOrders} activeStatus={activeStatus} />
+        <PurchaseOrdersTable vendors={vendors} purchaseOrders={purchaseOrders} activeStatus={activeStatus} />
       </Fragment>
     );
   }
@@ -74,6 +74,7 @@ export class PurchaseOrders extends Component {
 
 const mapStateToProps = ({ purchaseOrders }) => ({
   purchaseOrders: purchaseOrders.purchaseOrders,
+  vendors: purchaseOrders.vendors,
 });
 const mapActionsToProps = (dispatch) => ({
   fetchPurchaseOrders: () => dispatch(purchaseOrdersActions.fetchPurchaseOrders()),
@@ -83,6 +84,7 @@ const mapActionsToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapActionsToProps)(PurchaseOrders);
 
 PurchaseOrders.propTypes = {
+  vendors: PropTypes.object.isRequired,
   purchaseOrders: PropTypes.object.isRequired,
   fetchPurchaseOrders: PropTypes.func.isRequired,
   updateTitle: PropTypes.func.isRequired,

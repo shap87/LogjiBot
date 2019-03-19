@@ -44,7 +44,7 @@ export class UserMenu extends Component {
       <Fragment>
         <Button
           id="userSettings"
-          className="shadow-none border-0 rounded-circle st-icon-btn mb-3 st-user-menu__button"
+          className="shadow-none border-0 rounded-circle st-icon-btn mb-3"
           color="light"
           onClick={this.togglePopover}
         >
