@@ -1,0 +1,10 @@
+.st-table {
+  &__th {
+    user-select: none;
+    white-space: nowrap;
+
+    &--sortable {
+      cursor: pointer;
+    }
+  }
+}

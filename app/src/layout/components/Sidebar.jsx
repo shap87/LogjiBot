@@ -54,7 +54,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
               to="/dashboard"
               className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
             >
-              <FaIcon className="mr-4" iconName="dashboard" />
+              <FaIcon className="mr-2" iconName="dashboard" />
               Dashboard
             </NavLink>
           </NavItem>
@@ -63,7 +63,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
               to="/purchase-orders"
               className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
             >
-              <FaIcon className="mr-4" iconName="archive" />
+              <FaIcon className="mr-2" iconName="archive" />
               Purchase Orders
             </NavLink>
           </NavItem>
@@ -72,7 +72,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
               to="/graphs"
               className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
             >
-              <FaIcon className="mr-4" iconName="bar-chart" />
+              <FaIcon className="mr-2" iconName="bar-chart" />
               Graphs
             </NavLink>
           </NavItem>
@@ -81,7 +81,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
               to="/reports"
               className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
             >
-              <FaIcon className="mr-4" iconName="clipboard" />
+              <FaIcon className="mr-2" iconName="clipboard" />
               Reports
             </NavLink>
           </NavItem>
@@ -90,7 +90,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
               to="/quotes"
               className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
             >
-              <FaIcon className="mr-4" iconName="usd" />
+              <FaIcon className="mr-2" iconName="usd" />
               FedEx Quote
             </NavLink>
           </NavItem>
@@ -99,7 +99,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
               to="/files"
               className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
             >
-              <FaIcon className="mr-4" iconName="files-o" />
+              <FaIcon className="mr-2" iconName="files-o" />
               Loji Files
             </NavLink>
           </NavItem>

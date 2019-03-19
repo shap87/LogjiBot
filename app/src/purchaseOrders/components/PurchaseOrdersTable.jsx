@@ -1,26 +1,46 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Input } from 'reactstrap';
+import {
+  Table, Input, Form, FormGroup,
+} from 'reactstrap';
+import { isEmpty, values, map } from 'lodash';
 
 import PurchaseOrdersTableHead from './PurchaseOrdersTableHead';
 import PurchaseOrdersTableRow from './PurchaseOrdersTabelRow';
+import { FaIcon } from '../../utils';
 
-export default function PurchaseOrdersTable({ purchaseOrders }) {
+export default function PurchaseOrdersTable({ purchaseOrders, activeStatus }) {
+  let purchaseOrdersTableRows;
+
+  if (isEmpty(purchaseOrders)) {
+    purchaseOrdersTableRows = [];
+  } else if (!activeStatus) {
+    purchaseOrdersTableRows = map(values(purchaseOrders),
+      (purchaseOrderList) => map(purchaseOrderList,
+        (purchaseOrder, index) => (
+          <PurchaseOrdersTableRow key={index} {...purchaseOrder} />
+        )));
+  } else {
+    purchaseOrdersTableRows = purchaseOrders[activeStatus].map((purchaseOrder, index) => (
+      <PurchaseOrdersTableRow key={index} {...purchaseOrder} />
+    ));
+  }
+
   return (
     <Fragment>
-      <div className="d-flex justify-content-between mb-4">
-          Show All entities
-        <div className="d-flex align-items-baseline">
-          <span className="mr-3">Search: </span>
-          <Input bsSize="sm" />
-        </div>
+      <div className="d-flex justify-content-between mb-2">
+        <div className="actions" />
+        <Form inline>
+          <FormGroup className="position-relative">
+            <Input className="pl-4" />
+            <FaIcon className="position-absolute ml-2" iconName="search" />
+          </FormGroup>
+        </Form>
       </div>
-      <Table>
+      <Table hover>
         <PurchaseOrdersTableHead />
         <tbody>
-          {purchaseOrders.map((purchaseOrder, index) => (
-            <PurchaseOrdersTableRow key={index} {...purchaseOrder} />
-          ))}
+          {purchaseOrdersTableRows}
         </tbody>
       </Table>
     </Fragment>
@@ -28,5 +48,10 @@ export default function PurchaseOrdersTable({ purchaseOrders }) {
 }
 
 PurchaseOrdersTable.propTypes = {
-  purchaseOrders: PropTypes.array.isRequired,
+  purchaseOrders: PropTypes.object.isRequired,
+  activeStatus: PropTypes.string,
+};
+
+PurchaseOrdersTable.defaultProps = {
+  activeStatus: '',
 };

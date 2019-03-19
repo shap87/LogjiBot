@@ -4,9 +4,9 @@ import PurchaseOrdersTableHeadColumn from './PurchaseOrdersTableHeadColumn';
 
 export default function PurchaseOrdersTableHead() {
   const titles = [
-    'Purchase Orders', 'Memo', 'Vendor',
-    'Status', 'Followup', 'Date Due',
-    'Date Created', 'Last Modified',
+    'Memo', 'Vendor', 'Status',
+    'Ship Method', 'Ship Date', 'Due Date',
+    'Created At', 'Last Modified',
   ];
 
   return (

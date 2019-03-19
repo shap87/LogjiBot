@@ -19,7 +19,7 @@ export default class PurchaseOrdersTableHeadColumn extends Component {
   get columnClasses() {
     const { isChecked } = this.state;
 
-    return classNames({
+    return classNames('st-table__th--sortable', {
       'is-checked': isChecked,
     });
   }
@@ -36,8 +36,8 @@ export default class PurchaseOrdersTableHeadColumn extends Component {
       <th className={this.columnClasses} onClick={this.toggleOrder}>
         { title }
         { isOrderAsc
-          ? (<FaIcon iconName="sort-amount-asc" />)
-          : (<FaIcon iconName="sort-amount-desc" />)
+          ? (<FaIcon className="ml-2" iconName="sort-amount-asc" />)
+          : (<FaIcon className="ml-2" iconName="sort-amount-desc" />)
         }
       </th>
     );
