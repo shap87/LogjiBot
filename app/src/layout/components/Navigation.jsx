@@ -24,48 +24,68 @@ export default function Navigation({ isTextHidden }) {
         </NavItem>
         <NavItem className="d-flex">
           <NavLink
+            id="purchaseOrdersMain"
             to="/purchase-orders"
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
             <FaIcon iconName="archive" />
           </NavLink>
+          <SimpleTooltip target="purchaseOrdersMain" placement="right" trigger="hover">
+            Purchase Orders
+          </SimpleTooltip>
         </NavItem>
         <NavItem className="d-flex">
           <NavLink
+            id="graphsMain"
             to="/graphs"
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
             <FaIcon iconName="bar-chart" />
           </NavLink>
+          <SimpleTooltip target="graphsMain" placement="right" trigger="hover">
+            Graphs
+          </SimpleTooltip>
         </NavItem>
         <NavItem className="d-flex">
           <NavLink
+            id="reportsMain"
             to="/reports"
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
             <FaIcon iconName="clipboard" />
           </NavLink>
+          <SimpleTooltip target="reportsMain" placement="right" trigger="hover">
+            Reports
+          </SimpleTooltip>
         </NavItem>
         <NavItem className="d-flex">
           <NavLink
+            id="fedExQuoteMain"
             to="/quotes"
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
             <FaIcon iconName="usd" />
           </NavLink>
+          <SimpleTooltip target="fedExQuoteMain" placement="right" trigger="hover">
+            FedEx Quote
+          </SimpleTooltip>
         </NavItem>
         <NavItem className="d-flex">
           <NavLink
+            id="lojiFileseMain"
             to="/files"
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
             <FaIcon iconName="files-o" />
           </NavLink>
+          <SimpleTooltip target="lojiFileseMain" placement="right" trigger="hover">
+            Loji Files
+          </SimpleTooltip>
         </NavItem>
       </Nav>
     );
