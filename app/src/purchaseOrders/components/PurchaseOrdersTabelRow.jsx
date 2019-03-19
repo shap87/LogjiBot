@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
-import { FaIcon } from '../../utils';
+import { FaIcon, SimpleTooltip } from '../../utils';
 
 export default function PurchaseOrdersTableRow({
   id, status, time_created, time_modified, vendor, vendorName, ship_method, ship_date, due_date,
 }) {
   return (
     <tr>
-      <td>{id}</td>
+      <td />
       <td>
         <Link to={`/vendors/${vendor}`}>
           {vendorName}
@@ -22,12 +21,26 @@ export default function PurchaseOrdersTableRow({
       <td>{time_created}</td>
       <td>{time_modified}</td>
       <td>
-        <Button className="text-primary bg-transparent border-0 shadow-none rounded-circle mr-2">
+        <Link
+          id={`edit${id}`}
+          to={`/purchase-orders/${id}/edit`}
+          className="btn text-primary bg-transparent border-0 shadow-none rounded-circle mr-2"
+        >
           <FaIcon iconName="pencil" />
-        </Button>
-        <Button className="text-danger bg-transparent border-0 shadow-none rounded-circle">
+        </Link>
+        <SimpleTooltip target={`edit${id}`} placement="top" trigger="hover">
+          Edit
+        </SimpleTooltip>
+        <Link
+          id={`remove${id}`}
+          to={`/purchase-orders/${id}/remove`}
+          className="btn text-danger bg-transparent border-0 shadow-none rounded-circle"
+        >
           <FaIcon iconName="times" />
-        </Button>
+        </Link>
+        <SimpleTooltip target={`remove${id}`} placement="top" trigger="hover">
+          Remove
+        </SimpleTooltip>
       </td>
     </tr>
   );

@@ -29,16 +29,20 @@ export class PurchaseOrders extends Component {
     updateTitle('Purchase Orders');
   }
 
-  get navigation() {
-    const { purchaseOrders, match, location } = this.props;
+  get status() {
+    const { location } = this.props;
 
     const params = new URLSearchParams(location.search);
-    const activeStatus = params.get('status');
+    return params.get('status');
+  }
+
+  get navigation() {
+    const { purchaseOrders, match } = this.props;
 
     return (
       <Nav tabs className="mb-2">
         <NavItem>
-          <NavLink active={!activeStatus} tag="div">
+          <NavLink active={!this.status} tag="div">
             <RouterLink to={`${match.path}`}>
               All
             </RouterLink>
@@ -46,7 +50,7 @@ export class PurchaseOrders extends Component {
         </NavItem>
         {keys(purchaseOrders).map((status, index) => (
           <NavItem key={index}>
-            <NavLink active={activeStatus === status} tag="div">
+            <NavLink active={this.status === status} tag="div">
               <RouterLink to={`${match.path}?status=${status}`}>
                 {status}
               </RouterLink>
@@ -57,16 +61,28 @@ export class PurchaseOrders extends Component {
     );
   }
 
-  render() {
-    const { purchaseOrders, location, vendors } = this.props;
+  get removeModal() {
+    const { isRemoveModalShown } = this.props;
 
-    const params = new URLSearchParams(location.search);
-    const activeStatus = params.get('status');
+    if (!isRemoveModalShown) {
+      return null;
+    }
+
+    return null;
+  }
+
+  render() {
+    const { purchaseOrders, vendors } = this.props;
 
     return (
       <Fragment>
         {this.navigation}
-        <PurchaseOrdersTable vendors={vendors} purchaseOrders={purchaseOrders} activeStatus={activeStatus} />
+        {this.removeModal}
+        <PurchaseOrdersTable
+          vendors={vendors}
+          purchaseOrders={purchaseOrders}
+          activeStatus={this.status}
+        />
       </Fragment>
     );
   }
@@ -90,4 +106,9 @@ PurchaseOrders.propTypes = {
   updateTitle: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  isRemoveModalShown: PropTypes.bool,
+};
+
+PurchaseOrders.defaultProps = {
+  isRemoveModalShown: false,
 };
