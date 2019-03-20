@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Nav, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-import { FaIcon, SimpleTooltip } from '../../utils';
+import { Icon, SimpleTooltip } from '../../utils';
 
 export default function Navigation({ isTextHidden }) {
   if (isTextHidden) {
@@ -16,7 +16,7 @@ export default function Navigation({ isTextHidden }) {
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
-            <FaIcon iconName="dashboard" />
+            <Icon iconName="sidebar" />
           </NavLink>
           <SimpleTooltip target="dashboardMain" placement="right" trigger="hover">
             Dashboard
@@ -29,7 +29,7 @@ export default function Navigation({ isTextHidden }) {
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
-            <FaIcon iconName="archive" />
+            <Icon iconName="archive" />
           </NavLink>
           <SimpleTooltip target="purchaseOrdersMain" placement="right" trigger="hover">
             Purchase Orders
@@ -42,7 +42,7 @@ export default function Navigation({ isTextHidden }) {
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
-            <FaIcon iconName="bar-chart" />
+            <Icon iconName="pie-chart" />
           </NavLink>
           <SimpleTooltip target="graphsMain" placement="right" trigger="hover">
             Graphs
@@ -55,7 +55,7 @@ export default function Navigation({ isTextHidden }) {
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
-            <FaIcon iconName="clipboard" />
+            <Icon iconName="clipboard" />
           </NavLink>
           <SimpleTooltip target="reportsMain" placement="right" trigger="hover">
             Reports
@@ -68,7 +68,7 @@ export default function Navigation({ isTextHidden }) {
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
-            <FaIcon iconName="usd" />
+            <Icon iconName="dollar-sign" />
           </NavLink>
           <SimpleTooltip target="fedExQuoteMain" placement="right" trigger="hover">
             FedEx Quote
@@ -81,7 +81,7 @@ export default function Navigation({ isTextHidden }) {
             className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
           >
-            <FaIcon iconName="files-o" />
+            <Icon iconName="file" />
           </NavLink>
           <SimpleTooltip target="lojiFileseMain" placement="right" trigger="hover">
             Loji Files
@@ -98,7 +98,7 @@ export default function Navigation({ isTextHidden }) {
           to="/dashboard"
           className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
         >
-          <FaIcon className="mr-2" iconName="dashboard" />
+          <Icon className="mr-2" iconName="sidebar" />
           Dashboard
         </NavLink>
       </NavItem>
@@ -107,7 +107,7 @@ export default function Navigation({ isTextHidden }) {
           to="/purchase-orders"
           className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
         >
-          <FaIcon className="mr-2" iconName="archive" />
+          <Icon className="mr-2" iconName="archive" />
           Purchase Orders
         </NavLink>
       </NavItem>
@@ -116,7 +116,7 @@ export default function Navigation({ isTextHidden }) {
           to="/graphs"
           className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
         >
-          <FaIcon className="mr-2" iconName="bar-chart" />
+          <Icon className="mr-2" iconName="pie-chart" />
           Graphs
         </NavLink>
       </NavItem>
@@ -125,7 +125,7 @@ export default function Navigation({ isTextHidden }) {
           to="/reports"
           className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
         >
-          <FaIcon className="mr-2" iconName="clipboard" />
+          <Icon className="mr-2" iconName="clipboard" />
           Reports
         </NavLink>
       </NavItem>
@@ -134,7 +134,7 @@ export default function Navigation({ isTextHidden }) {
           to="/quotes"
           className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
         >
-          <FaIcon className="mr-2" iconName="usd" />
+          <Icon className="mr-2" iconName="dollar-sign" />
           FedEx Quote
         </NavLink>
       </NavItem>
@@ -143,7 +143,7 @@ export default function Navigation({ isTextHidden }) {
           to="/files"
           className="text-dark st-nav-link p-2 rounded d-flex flex-grow-1 align-items-center mb-1"
         >
-          <FaIcon className="mr-2" iconName="files-o" />
+          <Icon className="mr-2" iconName="file" />
           Loji Files
         </NavLink>
       </NavItem>

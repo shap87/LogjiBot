@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Button } from 'reactstrap';
 
 import * as layoutActions from '../../store/layout/layoutActions';
-import { FaIcon, SimpleTooltip, SyncQB } from '../../utils';
+import { Icon, SimpleTooltip, SyncQB } from '../../utils';
 
 
 export function Header({ toggleSidebar, isSidebarCollapsed, title }) {
@@ -20,7 +20,7 @@ export function Header({ toggleSidebar, isSidebarCollapsed, title }) {
           color="light"
           onClick={toggleSidebar}
         >
-          <FaIcon className={iconClasses} iconName="chevron-left" />
+          <Icon className={iconClasses} iconName="chevron-left" />
         </Button>
         <SimpleTooltip target="collapseSidebar" placement="right" trigger="hover">
           { isSidebarCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar' }

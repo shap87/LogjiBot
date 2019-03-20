@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { FaIcon } from '../../utils';
+import { Icon } from '../../utils';
 
 export default class PurchaseOrdersTableHeadColumn extends Component {
   constructor(props) {
@@ -36,8 +36,8 @@ export default class PurchaseOrdersTableHeadColumn extends Component {
       <th className={this.columnClasses} onClick={this.toggleOrder}>
         { title }
         { isOrderAsc
-          ? (<FaIcon className="ml-2" iconName="sort-amount-asc" />)
-          : (<FaIcon className="ml-2" iconName="sort-amount-desc" />)
+          ? (<Icon className="ml-2" iconName="arrow-down" />)
+          : (<Icon className="ml-2" iconName="arrow-up" />)
         }
       </th>
     );

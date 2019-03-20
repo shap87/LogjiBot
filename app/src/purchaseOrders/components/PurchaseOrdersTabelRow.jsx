@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FaIcon, SimpleTooltip } from '../../utils';
+import { Icon, SimpleTooltip } from '../../utils';
 
 export default function PurchaseOrdersTableRow({
   id, status, time_created, time_modified, vendor, vendorName, ship_method, ship_date, due_date,
@@ -26,7 +26,7 @@ export default function PurchaseOrdersTableRow({
           to={`/purchase-orders/${id}/edit`}
           className="btn text-primary bg-transparent border-0 shadow-none rounded-circle mr-2"
         >
-          <FaIcon iconName="pencil" />
+          <Icon iconName="edit" />
         </Link>
         <SimpleTooltip target={`edit${id}`} placement="top" trigger="hover">
           Edit
@@ -36,7 +36,7 @@ export default function PurchaseOrdersTableRow({
           to={`/purchase-orders/${id}/remove`}
           className="btn text-danger bg-transparent border-0 shadow-none rounded-circle"
         >
-          <FaIcon iconName="times" />
+          <Icon iconName="trash-2" />
         </Link>
         <SimpleTooltip target={`remove${id}`} placement="top" trigger="hover">
           Remove

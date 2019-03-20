@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import classNames from 'classnames';
 
-import { FaIcon, SimpleTooltip } from '../../utils';
+import { Icon, SimpleTooltip } from '../../utils';
 import UserMenuContainer from '../../user/components/UserMenu';
 import Navigation from './Navigation';
 
@@ -29,7 +29,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
         <div>
           <Link to="/">
             <h2 id="loji" className="text-primary text-center mb-1">
-              <FaIcon iconName="globe" />
+              <Icon iconName="globe" />
             </h2>
           </Link>
           <SimpleTooltip target="loji" placement="right" trigger="hover">
@@ -44,7 +44,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
             className="shadow-none border-0 rounded-circle st-icon-btn mb-2"
             color="light"
           >
-            <FaIcon iconName="bell" />
+            <Icon iconName="bell" />
           </Button>
           <SimpleTooltip target="notification" trigger="hover" placement="right">
             Notifications

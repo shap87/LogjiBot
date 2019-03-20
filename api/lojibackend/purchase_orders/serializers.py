@@ -46,4 +46,4 @@ class PartSerializer(serializers.ModelSerializer):
 class PurchaseOrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseOrderItem
-        fields = ['po', 'part', 'unit_price', 'qty']
+        fields = ['po', 'part',  'unit_price', 'qty']

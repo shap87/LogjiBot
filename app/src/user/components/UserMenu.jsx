@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Popover, PopoverBody } from 'reactstrap';
 
-import { FaIcon, SimpleTooltip } from '../../utils';
+import { Icon, SimpleTooltip } from '../../utils';
 import * as authActions from '../../store/auth/authActions';
 
 export class UserMenu extends Component {
@@ -48,7 +48,7 @@ export class UserMenu extends Component {
           color="light"
           onClick={this.togglePopover}
         >
-          <FaIcon iconName="user" />
+          <Icon iconName="user" />
         </Button>
 
         {this.tooltip}
@@ -62,10 +62,10 @@ export class UserMenu extends Component {
         >
           <PopoverBody className="d-flex flex-column p-0">
             <Link className="py-2 px-3 text-decoration-none st-user-menu__item" to="/user-settings">
-              <FaIcon className="mr-2" iconName="gear" /> User Settings
+              <Icon className="mr-2" iconName="settings" /> User Settings
             </Link>
             <Link className="py-2 px-3 text-decoration-none st-user-menu__item" to="/signin" onClick={signOut}>
-              <FaIcon className="mr-2" iconName="sign-out" /> Sign Out
+              <Icon className="mr-2" iconName="log-out" /> Sign Out
             </Link>
           </PopoverBody>
         </Popover>

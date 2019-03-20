@@ -7,7 +7,7 @@ import { isEmpty, values, map } from 'lodash';
 
 import PurchaseOrdersTableHead from './PurchaseOrdersTableHead';
 import PurchaseOrdersTableRow from './PurchaseOrdersTabelRow';
-import { FaIcon } from '../../utils';
+import { Icon } from '../../utils';
 
 export default function PurchaseOrdersTable({ purchaseOrders, vendors, activeStatus }) {
   let purchaseOrdersTableRows;
@@ -45,7 +45,7 @@ export default function PurchaseOrdersTable({ purchaseOrders, vendors, activeSta
         <Form inline>
           <FormGroup className="position-relative">
             <Input className="pl-4" />
-            <FaIcon className="position-absolute ml-2" iconName="search" />
+            <Icon className="position-absolute ml-2" iconName="search" />
           </FormGroup>
         </Form>
       </div>
