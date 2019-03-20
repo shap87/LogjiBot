@@ -45,7 +45,7 @@ export default function PurchaseOrdersTable({ purchaseOrders, vendors, activeSta
         <div className="actions" />
         <Form inline>
           <FormGroup className="position-relative">
-            <Input size="sm" className="pl-4" />
+            <Input bsSize="sm" className="pl-4" />
             <Icon className="position-absolute ml-2" iconName="search" />
           </FormGroup>
         </Form>

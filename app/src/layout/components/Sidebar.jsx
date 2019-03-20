@@ -53,7 +53,9 @@ export default function Sidebar({ isSidebarCollapsed }) {
           <UserMenuContainer />
         </div>
       </div>
-      <div className="d-flex flex-column flex-grow-1 flex-shrink-1 px-3 pt-5 st-sidebar--helper" />
+      <div className="d-flex flex-column flex-grow-1 flex-shrink-1 px-2 py-2 st-sidebar--helper">
+        <h5 className="text-center pt-2">Loji Service</h5>
+      </div>
     </div>
   );
 }

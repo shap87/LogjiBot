@@ -4,7 +4,9 @@ import {
   BrowserRouter as Router, Route, Switch, Redirect,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Spinner } from 'reactstrap';
 
+import DevelopmentRouter from './development/DevelopmentRouter';
 import DashboardRouter from './dashboard/DashboardRouter';
 import PurchaseOrdersRouter from './purchaseOrders/PurchaseOrdersRouter';
 import UserRouter from './user/UserRouter';
@@ -15,7 +17,6 @@ import { PrivateRoute, NotMatch } from './auth/components';
 import { Header, Sidebar } from './layout/components';
 import { validateToken } from './store/auth/authActions';
 import { getAccessTokenFromStorage, getRefreshTokenFromStorage } from './auth/authService';
-import { Spinner } from './utils/components/Spinner';
 
 export class AppRouter extends Component {
   state = {
@@ -42,7 +43,7 @@ export class AppRouter extends Component {
     const { isSidebarCollapsed, validateTokenOnMount, accessToken } = this.props;
 
     if (!hasInitialTokenValidationBeenDone) {
-      return <Spinner />;
+      return <Spinner color="primary" />;
     }
 
     const isAuthenticated = !!(hasInitialTokenValidationBeenDone && accessToken);
@@ -72,6 +73,11 @@ export class AppRouter extends Component {
               <Route path="/signup" component={SignUp} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <Route path="/reset-password" component={ResetPassword} />
+              <PrivateRoute
+                isAuthenticated={isAuthenticated}
+                path="/development"
+                component={DevelopmentRouter}
+              />
               <PrivateRoute
                 path="/dashboard"
                 component={DashboardRouter}
