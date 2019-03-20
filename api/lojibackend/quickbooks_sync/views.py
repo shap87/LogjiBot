@@ -91,7 +91,67 @@ def sync(request):
     return fetch_purchase_orders(request.user)
 
 
+@api_view(['POST'])
+def test_qb_connect(request):
+    """
+    API route for test connection and refresh QB tokens
+    """
+    try:
+        qb_user = QuickBooksUser.objects.get(user=request.user)
+    except QuickBooksUser.DoesNotExist:
+        return Response({'error': 'the current user is not registered as a QB user'}, status=400)
+    access_token = qb_user.access_token
+    refresh_token = qb_user.refresh_token
+    realm_id = qb_user.realm_id
 
+    base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    url = '{0}/v3/company/{1}/companyinfo/{1}'.format(base_url, realm_id)
+    auth_header = 'Bearer {0}'.format(access_token)
+    headers = {
+        'Authorization': auth_header,
+        'Accept': 'application/json'
+    }
+    r = requests.get(url, headers=headers)
+    tokens_used_message = 'old tokens were used'
+    if r.status_code >= 400:
+        print('debug: connection error, trying to get new tokens...')
+        url_lamda = 'https://wyklx960of.execute-api.us-east-2.amazonaws.com/beta-v6/GetRefreshToken'
+        api_key = 'tJVfveegtl9HkBB2N0SP34uf0lTVFo6S3aGiqaSR'
+        headers_lambda = {
+            'x-api-key': api_key,
+        }
+        r1 = requests.get(url_lamda, headers=headers_lambda, params={'refresh_token': refresh_token})
+        if r1.status_code != 200:
+            return Response({'error': 'connection error with lambda function', 'data': r1.text}, status=400)
+        response = json.loads(r1.text)
+        print('debug: lambda response:\n{}'.format(json.dumps(response, indent=2)))
+        new_access_token = response.get('access_token')
+        new_refresh_token = response.get('refresh_token')
+        if new_access_token and new_refresh_token:
+            qb_user.access_token = new_access_token
+            qb_user.refresh_token = new_refresh_token
+            qb_user.save()
+        else:
+            return Response({'error': 'received incorrect tokens', 'data': r1.text}, status=400)
+        auth_header = 'Bearer {0}'.format(new_access_token)
+        headers['Authorization'] = auth_header
+        r = requests.get(url, headers=headers)
+        if r.status_code >= 400:
+            return Response({'error': 'connection error', 'data': r.text}, status=400)
+        tokens_used_message = 'new tokens were used'
+    try:
+        company_info = json.loads(r.text).get('CompanyInfo', {})
+    except ValueError:
+        company_info = {}
+    domain = company_info.get('domain', '')
+    company_name = company_info.get('CompanyName', '')
+    if not domain and not company_name:
+        message = 'an incorrect QB server response with code {}:{}'.format(r.status_code, r.text)
+        return Response({'error': message}, status=400)
+    message = 'you are successfully connected to domain {} and company {}, {}'.format(domain, company_name,
+                                                                                      tokens_used_message)
+    print(message)
+    return Response({'success': message}, status=200)
 
 
 def fetch_purchase_orders(user):
