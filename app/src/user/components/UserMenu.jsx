@@ -60,11 +60,27 @@ export class UserMenu extends Component {
           placement="right"
           hideArrow
         >
-          <PopoverBody className="d-flex flex-column p-0">
-            <Link className="py-2 px-3 text-decoration-none st-user-menu__item" to="/user-settings">
+          <PopoverBody className="d-flex flex-column px-0 py-1">
+            <Link
+              className="d-flex align-items-center justify-content-start
+                py-2 px-3 text-decoration-none st-user-menu__item"
+              to="/development"
+            >
+              <Icon className="mr-2" iconName="cpu" /> Development
+            </Link>
+            <Link
+              className="d-flex align-items-center justify-content-start
+                py-2 px-3 text-decoration-none st-user-menu__item"
+              to="/user-settings"
+            >
               <Icon className="mr-2" iconName="settings" /> User Settings
             </Link>
-            <Link className="py-2 px-3 text-decoration-none st-user-menu__item" to="/signin" onClick={signOut}>
+            <Link
+              className="d-flex align-items-center justify-content-start
+                py-2 px-3 text-decoration-none st-user-menu__item"
+              to="/signin"
+              onClick={signOut}
+            >
               <Icon className="mr-2" iconName="log-out" /> Sign Out
             </Link>
           </PopoverBody>

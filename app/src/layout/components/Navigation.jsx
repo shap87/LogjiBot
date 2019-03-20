@@ -14,7 +14,7 @@ export default function Navigation() {
           className="text-dark st-nav-link st-nav-link-text--hidden
               p-2 rounded d-flex flex-grow-1 justify-content-center align-items-center mb-1"
         >
-          <Icon iconName="sidebar" />
+          <Icon iconName="trello" />
         </NavLink>
         <SimpleTooltip target="dashboardMain" placement="right" trigger="hover">
             Dashboard
