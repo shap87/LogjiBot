@@ -24,7 +24,7 @@ export default function PurchaseOrdersTableRow({
         <Link
           id={`edit${id}`}
           to={`/purchase-orders/${id}/edit`}
-          className="btn text-primary bg-transparent border-0 shadow-none rounded-circle mr-2"
+          className="btn btn-sm bg-transparent border-0 shadow-none rounded-circle mr-2"
         >
           <Icon iconName="edit" />
         </Link>
@@ -34,7 +34,7 @@ export default function PurchaseOrdersTableRow({
         <Link
           id={`remove${id}`}
           to={`/purchase-orders/${id}/remove`}
-          className="btn text-danger bg-transparent border-0 shadow-none rounded-circle"
+          className="btn bg-transparent border-0 shadow-none rounded-circle"
         >
           <Icon iconName="trash-2" />
         </Link>

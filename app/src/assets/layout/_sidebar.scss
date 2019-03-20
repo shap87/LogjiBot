@@ -8,10 +8,6 @@
     .st-sidebar--helper {
       transform: translateX(-#{$sidebar-width});
     }
-
-    .st-navigation--main {
-      transform: translateX(0);
-    }
   }
 
   &--main {
@@ -20,6 +16,8 @@
     min-width: $sidebar-width-collapsed;
     overflow: hidden;
     z-index: 2;
+    background-color: $white;
+    border-right: 2px solid $grey-gainsboro;
   }
 
   &--helper {
@@ -27,12 +25,8 @@
     transition: 0.4s ease;
     overflow: hidden;
     z-index: 1;
+    background-color: $white-smoke;
   }
-}
-
-.st-navigation--main {
-  transition: 0.4s ease-in-out;
-  transform: translateX($sidebar-width-collapsed);
 }
 
 .st-nav-link {

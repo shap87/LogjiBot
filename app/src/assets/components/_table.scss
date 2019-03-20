@@ -1,4 +1,14 @@
 .st-table {
+  tr {
+    &:hover {
+      background-color: $white-smoke !important;
+    }
+  }
+  td {
+    padding: 0 !important;
+    vertical-align: middle;
+  }
+
   &__th {
     user-select: none;
     white-space: nowrap;

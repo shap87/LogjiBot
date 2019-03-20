@@ -14,6 +14,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
     'bg-light',
     'd-flex',
     'flex-row',
+    'flex-shrink-0',
     {
       collapsed: isSidebarCollapsed,
     }
@@ -23,8 +24,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
     <div className={sidebarClassNames}>
       <div
         className="d-flex flex-column align-items-center
-        justify-content-between st-sidebar--main border-right
-        border-primary bg-white py-2"
+        justify-content-between st-sidebar--main py-2"
       >
         <div>
           <Link to="/">
@@ -35,7 +35,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
           <SimpleTooltip target="loji" placement="right" trigger="hover">
             Loji Service
           </SimpleTooltip>
-          <Navigation isTextHidden />
+          <Navigation />
         </div>
 
         <div className="d-flex flex-column">
@@ -53,9 +53,7 @@ export default function Sidebar({ isSidebarCollapsed }) {
           <UserMenuContainer />
         </div>
       </div>
-      <div className="d-flex flex-column flex-grow-1 flex-shrink-1 px-3 pt-5 st-sidebar--helper">
-        <Navigation />
-      </div>
+      <div className="d-flex flex-column flex-grow-1 flex-shrink-1 px-3 pt-5 st-sidebar--helper" />
     </div>
   );
 }

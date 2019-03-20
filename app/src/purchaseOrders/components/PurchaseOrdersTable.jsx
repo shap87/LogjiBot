@@ -13,6 +13,7 @@ export default function PurchaseOrdersTable({ purchaseOrders, vendors, activeSta
   let purchaseOrdersTableRows;
 
   if (isEmpty(purchaseOrders) || isEmpty(vendors)) {
+    // @TODO: add a placeholder
     purchaseOrdersTableRows = [];
   } else if (!activeStatus) {
     purchaseOrdersTableRows = map(values(purchaseOrders),
@@ -44,12 +45,12 @@ export default function PurchaseOrdersTable({ purchaseOrders, vendors, activeSta
         <div className="actions" />
         <Form inline>
           <FormGroup className="position-relative">
-            <Input className="pl-4" />
+            <Input size="sm" className="pl-4" />
             <Icon className="position-absolute ml-2" iconName="search" />
           </FormGroup>
         </Form>
       </div>
-      <Table hover>
+      <Table className="st-table" hover>
         <PurchaseOrdersTableHead />
         <tbody>
           {purchaseOrdersTableRows}

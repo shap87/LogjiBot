@@ -19,7 +19,7 @@ export default class PurchaseOrdersTableHeadColumn extends Component {
   get columnClasses() {
     const { isChecked } = this.state;
 
-    return classNames('st-table__th--sortable', {
+    return classNames('st-table__th st-table__th--sortable', {
       'is-checked': isChecked,
     });
   }
