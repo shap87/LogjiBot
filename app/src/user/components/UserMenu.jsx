@@ -58,6 +58,7 @@ export class UserMenu extends Component {
           toggle={this.togglePopover}
           delay={{ show: 120, hide: 250 }}
           placement="right"
+          trigger="legacy"
           hideArrow
         >
           <PopoverBody className="d-flex flex-column px-0 py-1">

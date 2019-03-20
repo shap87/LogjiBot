@@ -43,7 +43,10 @@ export class AppRouter extends Component {
     const { isSidebarCollapsed, validateTokenOnMount, accessToken } = this.props;
 
     if (!hasInitialTokenValidationBeenDone) {
-      return <Spinner color="primary" />;
+      return (
+        <div className="d-flex flex-grow-1 align-items-center justify-content-center">
+          <Spinner color="primary" />
+        </div>);
     }
 
     const isAuthenticated = !!(hasInitialTokenValidationBeenDone && accessToken);
