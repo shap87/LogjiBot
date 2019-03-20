@@ -1,13 +1,19 @@
 @import "./defaults/variables";
 @import "./defaults/helpers";
 @import "./defaults/shadows";
+@import "./defaults/colors";
+@import "./defaults/bootstrap-overrides";
 
 @import "./layout/sidebar";
 @import "./layout/header";
+@import "./layout/page";
 @import "/layout/404";
 
 @import "./components/buttons";
 @import "./components/divider";
+@import "./components/icon";
+@import "./components/table";
+@import "./components/user-menu";
 
 * {
   box-sizing: border-box;

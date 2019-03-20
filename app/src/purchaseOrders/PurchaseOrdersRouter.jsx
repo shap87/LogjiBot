@@ -10,6 +10,11 @@ export default function PurchaseOrdersRouter({ match }) {
     <section>
       <Switch>
         <Route exact path={path} component={PurchaseOrdersContainer} />
+        <Route
+          exact
+          path={`${path}/:id/remove`}
+          component={(props) => (<PurchaseOrdersContainer isRemoveModalShown {...props} />)}
+        />
       </Switch>
     </section>
   );

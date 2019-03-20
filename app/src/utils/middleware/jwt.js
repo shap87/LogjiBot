@@ -12,14 +12,12 @@ export default function jwt({ dispatch, getState }) {
 
     const { auth } = getState();
     const {
-      isTokenValid,
-      isCustomerAuthenticated,
       refreshingTokenPromise,
       accessToken,
       refreshToken,
     } = auth;
 
-    if (!isTokenValid || !isCustomerAuthenticated) {
+    if (!accessToken || !refreshToken) {
       return next(action);
     }
 

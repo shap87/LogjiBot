@@ -17,6 +17,7 @@
     "airbnb"
   ],
   "rules": {
+    "camelcase": "warn",
     "no-use-before-define": "off",
     "comma-dangle": ["error", {
       "arrays": "always-multiline",

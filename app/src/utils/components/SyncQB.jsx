@@ -8,6 +8,7 @@ export default function SyncQB() {
     <Button
       onClick={synchronizeWithQB}
       color="success"
+      size="sm"
       outline
     >
       Sync with QuickBooks

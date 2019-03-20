@@ -18,14 +18,14 @@ class ProfileSerializer(serializers.ModelSerializer):
 class VendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor
-        fields = ['name', 'city', 'state', 'zip', 'country', 'phone', 'contact_name', 'email']
+        fields = ['id', 'name', 'city', 'state', 'zip', 'country', 'phone', 'contact_name', 'email']
 
 
 class PurchaseOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseOrder
         fields = [
-            'vendor',
+            'vendor', 'id',
             'time_created', 'time_modified',
             'due_date', 'ship_method', 'status', 'ship_date',
         ]
@@ -46,4 +46,4 @@ class PartSerializer(serializers.ModelSerializer):
 class PurchaseOrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseOrderItem
-        fields = ['po', 'part', 'unit_price', 'qty']
+        fields = ['po', 'part',  'unit_price', 'qty']

@@ -4,7 +4,9 @@ import {
   BrowserRouter as Router, Route, Switch, Redirect,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Spinner } from 'reactstrap';
 
+import DevelopmentRouter from './development/DevelopmentRouter';
 import DashboardRouter from './dashboard/DashboardRouter';
 import PurchaseOrdersRouter from './purchaseOrders/PurchaseOrdersRouter';
 import UserRouter from './user/UserRouter';
@@ -15,7 +17,6 @@ import { PrivateRoute, NotMatch } from './auth/components';
 import { Header, Sidebar } from './layout/components';
 import { validateToken } from './store/auth/authActions';
 import { getAccessTokenFromStorage, getRefreshTokenFromStorage } from './auth/authService';
-import { Spinner } from './utils/components/Spinner';
 
 export class AppRouter extends Component {
   state = {
@@ -42,7 +43,10 @@ export class AppRouter extends Component {
     const { isSidebarCollapsed, validateTokenOnMount, accessToken } = this.props;
 
     if (!hasInitialTokenValidationBeenDone) {
-      return <Spinner />;
+      return (
+        <div className="d-flex flex-grow-1 align-items-center justify-content-center">
+          <Spinner color="primary" />
+        </div>);
     }
 
     const isAuthenticated = !!(hasInitialTokenValidationBeenDone && accessToken);
@@ -55,7 +59,7 @@ export class AppRouter extends Component {
             : null
           }
 
-          <div className="d-flex flex-column flex-grow-1 rounded-left px-4 py-2 bg-white shadow-z3">
+          <div className="d-flex flex-column flex-grow-1 rounded-left px-4 py-2 st-page shadow-z2">
             { isAuthenticated ? (<Header />) : null }
             <Switch>
               <Route path="/" render={() => <Redirect to="/dashboard" />} exact />
@@ -72,6 +76,11 @@ export class AppRouter extends Component {
               <Route path="/signup" component={SignUp} />
               <Route path="/forgot-password" component={ForgotPassword} />
               <Route path="/reset-password" component={ResetPassword} />
+              <PrivateRoute
+                isAuthenticated={isAuthenticated}
+                path="/development"
+                component={DevelopmentRouter}
+              />
               <PrivateRoute
                 path="/dashboard"
                 component={DashboardRouter}

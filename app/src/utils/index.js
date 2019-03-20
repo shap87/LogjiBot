@@ -4,6 +4,6 @@ export { default as request } from './request';
 export { default as jwt } from './middleware/jwt';
 export { default as CustomInput } from './components/CustomInput';
 export { default as Divider } from './components/Divider';
-export { default as FaIcon } from './components/FaIcon';
+export { default as Icon } from './components/Icon';
 export { default as SimpleTooltip } from './components/SimpleTooltip';
 export { default as SyncQB } from './components/SyncQB';

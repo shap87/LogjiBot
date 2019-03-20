@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import FaIcon from './FaIcon';
+import Icon from './Icon';
 
-describe('FaIcon component', () => {
+describe('Icon component', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<FaIcon iconName="plus" />);
+    wrapper = shallow(<Icon iconName="plus" />);
   });
 
   it('should render fontawesome icon', () => {

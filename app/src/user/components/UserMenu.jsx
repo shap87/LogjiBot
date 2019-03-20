@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Popover, PopoverBody } from 'reactstrap';
 
-import { FaIcon, SimpleTooltip } from '../../utils';
+import { Icon, SimpleTooltip } from '../../utils';
 import * as authActions from '../../store/auth/authActions';
 
 export class UserMenu extends Component {
@@ -44,12 +44,11 @@ export class UserMenu extends Component {
       <Fragment>
         <Button
           id="userSettings"
-          className="shadow-none border-0 rounded-circle st-icon-btn"
-          color="primary"
-          tag="div"
+          className="shadow-none border-0 rounded-circle st-icon-btn mb-3"
+          color="light"
           onClick={this.togglePopover}
         >
-          <FaIcon iconName="user" />
+          <Icon iconName="user" />
         </Button>
 
         {this.tooltip}
@@ -59,13 +58,31 @@ export class UserMenu extends Component {
           toggle={this.togglePopover}
           delay={{ show: 120, hide: 250 }}
           placement="right"
+          trigger="legacy"
+          hideArrow
         >
-          <PopoverBody className="d-flex flex-column">
-            <Link to="/user-settings">
-              <FaIcon iconName="gear" /> User Settings
+          <PopoverBody className="d-flex flex-column px-0 py-1">
+            <Link
+              className="d-flex align-items-center justify-content-start
+                py-2 px-3 text-decoration-none st-user-menu__item"
+              to="/development"
+            >
+              <Icon className="mr-2" iconName="cpu" /> Development
             </Link>
-            <Link to="/signin" onClick={signOut}>
-              <FaIcon iconName="sign-out" /> Sign Out
+            <Link
+              className="d-flex align-items-center justify-content-start
+                py-2 px-3 text-decoration-none st-user-menu__item"
+              to="/user-settings"
+            >
+              <Icon className="mr-2" iconName="settings" /> User Settings
+            </Link>
+            <Link
+              className="d-flex align-items-center justify-content-start
+                py-2 px-3 text-decoration-none st-user-menu__item"
+              to="/signin"
+              onClick={signOut}
+            >
+              <Icon className="mr-2" iconName="log-out" /> Sign Out
             </Link>
           </PopoverBody>
         </Popover>
