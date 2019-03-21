@@ -104,7 +104,7 @@ def test_qb_connect(request):
     refresh_token = qb_user.refresh_token
     realm_id = qb_user.realm_id
 
-    base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    base_url = settings.INTUIT_QBO_BASE_URL
     url = '{0}/v3/company/{1}/companyinfo/{1}'.format(base_url, realm_id)
     auth_header = 'Bearer {0}'.format(access_token)
     headers = {
@@ -115,12 +115,12 @@ def test_qb_connect(request):
     tokens_used_message = 'old tokens were used'
     if r.status_code >= 400:
         print('debug: connection error, trying to get new tokens...')
-        url_lamda = 'https://wyklx960of.execute-api.us-east-2.amazonaws.com/beta-v6/GetRefreshToken'
-        api_key = 'tJVfveegtl9HkBB2N0SP34uf0lTVFo6S3aGiqaSR'
+        url_lambda = settings.AWS_REFRESH_TOKENS_ENDPOINT
+        api_key = settings.AWS_API_KEY
         headers_lambda = {
             'x-api-key': api_key,
         }
-        r1 = requests.get(url_lamda, headers=headers_lambda, params={'refresh_token': refresh_token})
+        r1 = requests.get(url_lambda, headers=headers_lambda, params={'refresh_token': refresh_token})
         if r1.status_code != 200:
             return Response({'error': 'connection error with lambda function', 'data': r1.text}, status=400)
         response = json.loads(r1.text)
@@ -166,8 +166,8 @@ def fetch_purchase_orders(user):
     access_token=qb_user.access_token
     realm_id=qb_user.realm_id
 
-    #prepare API request
-    base_url = 'https://sandbox-quickbooks.api.intuit.com'
+    # prepare API request
+    base_url = settings.INTUIT_QBO_BASE_URL
     select_statment = 'select * from PurchaseOrder'
     url = '{0}/v3/company/{1}/query?query={2}'.format(base_url,
                                                       realm_id,
@@ -177,7 +177,7 @@ def fetch_purchase_orders(user):
         'Authorization': auth_header,
         'Accept': 'application/json'
     }
-    #make API call
+    # make API call
     response = requests.get(url, headers=headers)
 
     if(response.status_code == 200):
