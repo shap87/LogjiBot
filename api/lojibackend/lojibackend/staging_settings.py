@@ -198,3 +198,8 @@ INTUIT_REDIRECT_URI = "http://ec2-3-18-103-182.us-east-2.compute.amazonaws.com/a
 INTUIT_APP_REDIRECT_URI = "http://dypqjnd361hg9.cloudfront.net/oauth"
 INTUIT_ENVIROMENT = "sandbox"
 INTUIT_SCOPES = [Scopes.OPENID, Scopes.ACCOUNTING, Scopes.EMAIL, Scopes.PROFILE]
+INTUIT_QBO_BASE_URL = 'https://sandbox-quickbooks.api.intuit.com'
+
+# AWS settings
+AWS_REFRESH_TOKENS_ENDPOINT = 'https://wyklx960of.execute-api.us-east-2.amazonaws.com/beta-v6/GetRefreshToken'
+AWS_API_KEY = 'tJVfveegtl9HkBB2N0SP34uf0lTVFo6S3aGiqaSR'
